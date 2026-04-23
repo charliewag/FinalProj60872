@@ -1,0 +1,36 @@
+Challenger Crew Report
+NASA Communications
+
+RADM Richard H. Truly
+Associate Administrator for Space Flight
+NASA Headquarters
+Code M
+Washington, DC 20546
+
+Dear Admiral Truly:
+
+The search for wreckage of the Challenger crew cabin has been completed. A team of engineers and scientists has analyzed the wreckage and all other available evidence in an attempt to determine the cause of death of the Challenger crew. This letter is to report to you on the results of this effort. The findings are inconclusive. The impact of the crew compartment with the ocean surface was so violent that evidence of damage occurring in the seconds which followed the explosion was masked. Our final conclusions are:
+
+the cause of death of the Challenger astronauts cannot be positively determined;
+the forces to which the crew were exposed during Orbiter breakup were probably not sufficient to cause death or serious injury; and
+the crew possibly, but not certainly, lost consciousness in the seconds following Orbiter breakup due to in-flight loss of crew module pressure.
+Our inspection and analyses revealed certain facts which support the above conclusions, and these are related below: The forces on the Orbiter at breakup were probably too low to cause death or serious injury to the crew but were sufficient to separate the crew compartment from the forward fuselage, cargo bay, nose cone, and forward reaction control compartment. The forces applied to the Orbiter to cause such destruction clearly exceed its design limits. The data available to estimate the magnitude and direction of these forces included ground photographs and measurements from onboard accelerometers, which were lost two-tenths of a second after vehicle breakup.
+
+Two independent assessments of these data produced very similar estimates. The largest acceleration pulse occurred as the Orbiter forward fuselage separated and was rapidly pushed away from the external tank. It then pitched nose-down and was decelerated rapidly by aerodynamic forces. There are uncertainties in our analysis; the actual breakup is not visible on photographs because the Orbiter was hidden by the gaseous cloud surrounding the external tank. The range of most probable maximum accelerations is from 12 to 20 G’s in the vertical axis. These accelerations were quite brief. In two seconds, they were below four G’s; in less than ten seconds, the crew compartment was essentially in free fall. Medical analysis indicates that these accelerations are survivable, and that the probability of major injury to crew members is low.
+
+After vehicle breakup, the crew compartment continued its upward trajectory, peaking at an altitude of 65,000 feet approximately 25 seconds after breakup. It then descended striking the ocean surface about two minutes and forty-five seconds after breakup at a velocity of about 207 miles per hour. The forces imposed by this impact approximated 200 G’s, far in excess of the structural limits of the crew compartment or crew survivability levels.
+
+The separation of the crew compartment deprived the crew of Orbiter-supplied oxygen, except for a few seconds supply in the lines. Each crew member’s helmet was also connected to a personal egress air pack (PEAP) containing an emergency supply of breathing air (not oxygen) for ground egress emergencies, which must be manually activated to be available. Four PEAP’s were recovered, and there is evidence that three had been activated. The nonactivated PEAP was identified as the Commander’s, one of the others as the Pilot’s, and the remaining ones could not be associated with any crew member. The evidence indicates that the PEAP’s were not activated due to water impact.
+
+It is possible, but not certain, that the crew lost consciousness due to an in-flight loss of crew module pressure. Data to support this is:
+
+The accident happened at 48,000 feet, and the crew cabin was at that altitude or higher for almost a minute. At that altitude, without an oxygen supply, loss of cabin pressure would have caused rapid loss of consciousness and it would not have been regained before water impact.
+PEAP activation could have been an instinctive response to unexpected loss of cabin pressure.
+If a leak developed in the crew compartment as a result of structural damage during or after breakup (even if the PEAP’s had been activated), the breathing air available would not have prevented rapid loss of consciousness.
+The crew seats and restraint harnesses showed patterns of failure which demonstrates that all the seats were in place and occupied at water impact with all harnesses locked. This would likely be the case had rapid loss of consciousness occurred, but it does not constitute proof.
+Much of our effort was expended attempting to determine whether a loss of cabin pressure occurred. We examined the wreckage carefully, including the crew module attach points to the fuselage, the crew seats, the pressure shell, the flight deck and middeck floors, and feedthroughs for electrical and plumbing connections. The windows were examined and fragments of glass analyzed chemically and microscopically. Some items of equipment stowed in lockers showed damage that might have occurred due to decompression; we experimentally decompressed similar items without conclusive results.
+
+Impact damage to the windows was so extreme that the presence or absence of in-flight breakage could not be determined. The estimated breakup forces would not in themselves have broken the windows. A broken window due to flying debris remains a possibility; there was a piece of debris imbedded in the frame between two of the forward windows. We could not positively identify the origin of the debris or establish whether the event occurred in flight or at water impact. The same statement is true of the other crew compartment structure. Impact damage was so severe that no positive evidence for or against in-flight pressure loss could be found.
+
+Finally, the skilled and dedicated efforts of the team from the Armed Forces Institute of Pathology, and their expert consultants, could not determine whether in-flight lack of oxygen occurred, nor could they determine the cause of death.
+

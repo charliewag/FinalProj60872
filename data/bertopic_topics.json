@@ -1,0 +1,576 @@
+[
+  {
+    "topic_id": -1,
+    "label": "POLITICAL",
+    "count": 459,
+    "mean_score": 1.33,
+    "std_score": 1.663,
+    "keywords": [
+      "(outliers \u2014 no coherent topic)"
+    ],
+    "sources": {
+      "danluu": 46,
+      "aws": 2,
+      "manual": 14,
+      "icco": 2,
+      "fail_news": 395
+    }
+  },
+  {
+    "topic_id": 0,
+    "label": "POLITICAL",
+    "count": 403,
+    "mean_score": 1.196,
+    "std_score": 1.68,
+    "keywords": [
+      "reassuring",
+      "stakeholders",
+      "the",
+      "focuses",
+      "explaining",
+      "on",
+      "mechanism",
+      "and"
+    ],
+    "sources": {
+      "danluu": 47,
+      "aws": 1,
+      "manual": 10,
+      "fail_news": 345
+    }
+  },
+  {
+    "topic_id": 1,
+    "label": "POLITICAL",
+    "count": 161,
+    "mean_score": 0.089,
+    "std_score": 0.278,
+    "keywords": [
+      "completely",
+      "political",
+      "is",
+      "focusing",
+      "without",
+      "any",
+      "explaining",
+      "this"
+    ],
+    "sources": {
+      "fail_news": 161
+    }
+  },
+  {
+    "topic_id": 2,
+    "label": "POLITICAL",
+    "count": 144,
+    "mean_score": 1.127,
+    "std_score": 0.874,
+    "keywords": [
+      "glitch",
+      "computer",
+      "mentions",
+      "cause",
+      "the",
+      "root",
+      "but",
+      "or"
+    ],
+    "sources": {
+      "danluu": 2,
+      "fail_news": 142
+    }
+  },
+  {
+    "topic_id": 3,
+    "label": "POLITICAL",
+    "count": 90,
+    "mean_score": 2.426,
+    "std_score": 1.609,
+    "keywords": [
+      "but",
+      "lacks",
+      "cause",
+      "root",
+      "fix",
+      "the",
+      "specific",
+      "mechanism"
+    ],
+    "sources": {
+      "danluu": 19,
+      "manual": 1,
+      "fail_news": 70
+    }
+  },
+  {
+    "topic_id": 4,
+    "label": "POLITICAL",
+    "count": 60,
+    "mean_score": 0.134,
+    "std_score": 0.334,
+    "keywords": [
+      "news",
+      "software",
+      "no",
+      "be",
+      "appears",
+      "unrelated",
+      "article",
+      "with"
+    ],
+    "sources": {
+      "fail_news": 60
+    }
+  },
+  {
+    "topic_id": 5,
+    "label": "POLITICAL",
+    "count": 46,
+    "mean_score": 1.022,
+    "std_score": 0.962,
+    "keywords": [
+      "political",
+      "politics",
+      "than",
+      "rather",
+      "focuses",
+      "the",
+      "and",
+      "implications"
+    ],
+    "sources": {
+      "danluu": 1,
+      "fail_news": 45
+    }
+  },
+  {
+    "topic_id": 6,
+    "label": "POLITICAL",
+    "count": 40,
+    "mean_score": 0.458,
+    "std_score": 0.686,
+    "keywords": [
+      "pushes",
+      "agenda",
+      "business",
+      "company",
+      "without",
+      "explaining",
+      "the",
+      "of"
+    ],
+    "sources": {
+      "icco": 1,
+      "fail_news": 39
+    }
+  },
+  {
+    "topic_id": 7,
+    "label": "POLITICAL",
+    "count": 37,
+    "mean_score": 1.027,
+    "std_score": 1.058,
+    "keywords": [
+      "only",
+      "cause",
+      "provides",
+      "mentions",
+      "root",
+      "or",
+      "the",
+      "vague"
+    ],
+    "sources": {
+      "fail_news": 37
+    }
+  },
+  {
+    "topic_id": 8,
+    "label": "POLITICAL",
+    "count": 29,
+    "mean_score": 0.288,
+    "std_score": 0.509,
+    "keywords": [
+      "software",
+      "rather",
+      "than",
+      "focuses",
+      "business",
+      "of",
+      "genuine",
+      "failure"
+    ],
+    "sources": {
+      "fail_news": 29
+    }
+  },
+  {
+    "topic_id": 9,
+    "label": "POLITICAL",
+    "count": 27,
+    "mean_score": 0.049,
+    "std_score": 0.251,
+    "keywords": [
+      "sports",
+      "software",
+      "no",
+      "mention",
+      "article",
+      "news",
+      "baseball",
+      "does"
+    ],
+    "sources": {
+      "fail_news": 27
+    }
+  },
+  {
+    "topic_id": 10,
+    "label": "POLITICAL",
+    "count": 26,
+    "mean_score": 0.167,
+    "std_score": 0.456,
+    "keywords": [
+      "airline",
+      "merger",
+      "focused",
+      "entirely",
+      "any",
+      "airport",
+      "no",
+      "move"
+    ],
+    "sources": {
+      "fail_news": 26
+    }
+  },
+  {
+    "topic_id": 11,
+    "label": "POLITICAL",
+    "count": 20,
+    "mean_score": 0.784,
+    "std_score": 0.687,
+    "keywords": [
+      "y2k",
+      "bug",
+      "companies",
+      "the",
+      "progress",
+      "of",
+      "sba",
+      "businesses"
+    ],
+    "sources": {
+      "fail_news": 20
+    }
+  },
+  {
+    "topic_id": 12,
+    "label": "POLITICAL",
+    "count": 20,
+    "mean_score": 0.317,
+    "std_score": 0.784,
+    "keywords": [
+      "market",
+      "software",
+      "financial",
+      "economic",
+      "any",
+      "stock",
+      "data",
+      "trends"
+    ],
+    "sources": {
+      "fail_news": 20
+    }
+  },
+  {
+    "topic_id": 13,
+    "label": "POLITICAL",
+    "count": 16,
+    "mean_score": 0.854,
+    "std_score": 0.897,
+    "keywords": [
+      "delay",
+      "launch",
+      "delays",
+      "the",
+      "of",
+      "cause",
+      "consequences",
+      "to"
+    ],
+    "sources": {
+      "icco": 1,
+      "fail_news": 15
+    }
+  },
+  {
+    "topic_id": 14,
+    "label": "POLITICAL",
+    "count": 15,
+    "mean_score": 1.577,
+    "std_score": 1.098,
+    "keywords": [
+      "wireless",
+      "but",
+      "fix",
+      "mentions",
+      "switches",
+      "dsl",
+      "provide",
+      "does"
+    ],
+    "sources": {
+      "danluu": 2,
+      "fail_news": 13
+    }
+  },
+  {
+    "topic_id": 15,
+    "label": "POLITICAL",
+    "count": 15,
+    "mean_score": 0.067,
+    "std_score": 0.249,
+    "keywords": [
+      "celebrity",
+      "feud",
+      "tax",
+      "entirely",
+      "debt",
+      "any",
+      "focused",
+      "accounting"
+    ],
+    "sources": {
+      "fail_news": 15
+    }
+  },
+  {
+    "topic_id": 16,
+    "label": "POLITICAL",
+    "count": 15,
+    "mean_score": 0.222,
+    "std_score": 0.512,
+    "keywords": [
+      "does",
+      "not",
+      "explain",
+      "instead",
+      "focusing",
+      "provide",
+      "business",
+      "fluke"
+    ],
+    "sources": {
+      "fail_news": 15
+    }
+  },
+  {
+    "topic_id": 17,
+    "label": "POLITICAL",
+    "count": 14,
+    "mean_score": 1.0,
+    "std_score": 0.642,
+    "keywords": [
+      "tv",
+      "digital",
+      "transition",
+      "issues",
+      "reception",
+      "explain",
+      "nickelodeon",
+      "viacom"
+    ],
+    "sources": {
+      "fail_news": 14
+    }
+  },
+  {
+    "topic_id": 18,
+    "label": "POLITICAL",
+    "count": 13,
+    "mean_score": 0.052,
+    "std_score": 0.179,
+    "keywords": [
+      "lottery",
+      "excitement",
+      "drawing",
+      "hype",
+      "jackpot",
+      "powerball",
+      "frenzy",
+      "surrounding"
+    ],
+    "sources": {
+      "fail_news": 13
+    }
+  },
+  {
+    "topic_id": 19,
+    "label": "TECHNICAL",
+    "count": 12,
+    "mean_score": 6.389,
+    "std_score": 0.891,
+    "keywords": [
+      "remediation",
+      "verified",
+      "behavior",
+      "detailed",
+      "including",
+      "provides",
+      "system",
+      "sections"
+    ],
+    "sources": {
+      "danluu": 9,
+      "aws": 1,
+      "manual": 1,
+      "icco": 1
+    }
+  },
+  {
+    "topic_id": 20,
+    "label": "POLITICAL",
+    "count": 11,
+    "mean_score": 0.455,
+    "std_score": 0.591,
+    "keywords": [
+      "chess",
+      "political",
+      "glitch",
+      "match",
+      "kasparov",
+      "garry",
+      "completely",
+      "online"
+    ],
+    "sources": {
+      "fail_news": 11
+    }
+  },
+  {
+    "topic_id": 21,
+    "label": "POLITICAL",
+    "count": 10,
+    "mean_score": 1.968,
+    "std_score": 2.184,
+    "keywords": [
+      "scoring",
+      "higher",
+      "score",
+      "error",
+      "scores",
+      "in",
+      "detail",
+      "but"
+    ],
+    "sources": {
+      "danluu": 1,
+      "fail_news": 9
+    }
+  },
+  {
+    "topic_id": 22,
+    "label": "POLITICAL",
+    "count": 10,
+    "mean_score": 1.1,
+    "std_score": 0.598,
+    "keywords": [
+      "radar",
+      "glitch",
+      "processing",
+      "mentions",
+      "system",
+      "root",
+      "cause",
+      "data"
+    ],
+    "sources": {
+      "fail_news": 10
+    }
+  },
+  {
+    "topic_id": 23,
+    "label": "POLITICAL",
+    "count": 10,
+    "mean_score": 1.433,
+    "std_score": 0.472,
+    "keywords": [
+      "vague",
+      "descriptions",
+      "provides",
+      "root",
+      "cause",
+      "without",
+      "technical",
+      "issues"
+    ],
+    "sources": {
+      "fail_news": 10
+    }
+  },
+  {
+    "topic_id": 24,
+    "label": "MIXED",
+    "count": 10,
+    "mean_score": 4.867,
+    "std_score": 2.373,
+    "keywords": [
+      "language",
+      "uses",
+      "sounding",
+      "pseudo",
+      "including",
+      "explains",
+      "specific",
+      "root"
+    ],
+    "sources": {
+      "danluu": 7,
+      "icco": 1,
+      "fail_news": 2
+    }
+  },
+  {
+    "topic_id": 25,
+    "label": "POLITICAL",
+    "count": 10,
+    "mean_score": 1.967,
+    "std_score": 1.771,
+    "keywords": [
+      "spacecraft",
+      "provides",
+      "mission",
+      "fuel",
+      "overview",
+      "but",
+      "cause",
+      "it"
+    ],
+    "sources": {
+      "danluu": 1,
+      "fail_news": 9
+    }
+  },
+  {
+    "topic_id": 26,
+    "label": "POLITICAL",
+    "count": 10,
+    "mean_score": 0.466,
+    "std_score": 0.653,
+    "keywords": [
+      "broadway",
+      "show",
+      "production",
+      "issues",
+      "explain",
+      "delays",
+      "this",
+      "theatre"
+    ],
+    "sources": {
+      "fail_news": 10
+    }
+  }
+]

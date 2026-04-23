@@ -1,0 +1,740 @@
+{
+  "technical": {
+    "high": [
+      {
+        "keyword": "data",
+        "coefficient": 0.7920340399226466
+      },
+      {
+        "keyword": "code",
+        "coefficient": 0.6532570116114205
+      },
+      {
+        "keyword": "bug",
+        "coefficient": 0.5870851368684088
+      },
+      {
+        "keyword": "servers",
+        "coefficient": 0.5855599975355715
+      },
+      {
+        "keyword": "outage",
+        "coefficient": 0.5712998506553654
+      },
+      {
+        "keyword": "problem",
+        "coefficient": 0.559732718570067
+      },
+      {
+        "keyword": "incident",
+        "coefficient": 0.513127068856473
+      },
+      {
+        "keyword": "error",
+        "coefficient": 0.5102476760679445
+      },
+      {
+        "keyword": "cause",
+        "coefficient": 0.48989639711212635
+      },
+      {
+        "keyword": "caused",
+        "coefficient": 0.47756546059162885
+      },
+      {
+        "keyword": "load",
+        "coefficient": 0.45951638657769867
+      },
+      {
+        "keyword": "software",
+        "coefficient": 0.45496008805517657
+      },
+      {
+        "keyword": "server",
+        "coefficient": 0.45064207562696584
+      },
+      {
+        "keyword": "engineers",
+        "coefficient": 0.446400699289328
+      },
+      {
+        "keyword": "issue",
+        "coefficient": 0.4231919215584712
+      },
+      {
+        "keyword": "systems",
+        "coefficient": 0.42045115008631884
+      },
+      {
+        "keyword": "control",
+        "coefficient": 0.40961856566177984
+      },
+      {
+        "keyword": "configuration",
+        "coefficient": 0.40628335299514756
+      },
+      {
+        "keyword": "affected",
+        "coefficient": 0.40605879382074184
+      },
+      {
+        "keyword": "user",
+        "coefficient": 0.38414397320860466
+      },
+      {
+        "keyword": "root",
+        "coefficient": 0.3687203723246126
+      },
+      {
+        "keyword": "database",
+        "coefficient": 0.3685623886828039
+      },
+      {
+        "keyword": "used",
+        "coefficient": 0.3630072736889818
+      },
+      {
+        "keyword": "process",
+        "coefficient": 0.3602154264425107
+      },
+      {
+        "keyword": "use",
+        "coefficient": 0.35333919764774085
+      },
+      {
+        "keyword": "requests",
+        "coefficient": 0.3515474311315252
+      },
+      {
+        "keyword": "failed",
+        "coefficient": 0.35057888958686273
+      },
+      {
+        "keyword": "errors",
+        "coefficient": 0.3496663116419226
+      },
+      {
+        "keyword": "failure",
+        "coefficient": 0.34489426004303225
+      },
+      {
+        "keyword": "started",
+        "coefficient": 0.3403978730958673
+      }
+    ],
+    "low": [
+      {
+        "keyword": "year",
+        "coefficient": -0.4698761092454623
+      },
+      {
+        "keyword": "bank",
+        "coefficient": -0.3368175755559551
+      },
+      {
+        "keyword": "pay",
+        "coefficient": -0.31641339861053597
+      },
+      {
+        "keyword": "million",
+        "coefficient": -0.3037859032369258
+      },
+      {
+        "keyword": "month",
+        "coefficient": -0.3001835906343644
+      },
+      {
+        "keyword": "company",
+        "coefficient": -0.2831658536040544
+      },
+      {
+        "keyword": "people",
+        "coefficient": -0.28278014891613834
+      },
+      {
+        "keyword": "business",
+        "coefficient": -0.2675043182602026
+      },
+      {
+        "keyword": "2012",
+        "coefficient": -0.264968696188758
+      },
+      {
+        "keyword": "government",
+        "coefficient": -0.2644496738011515
+      },
+      {
+        "keyword": "percent",
+        "coefficient": -0.2552777962676964
+      },
+      {
+        "keyword": "world",
+        "coefficient": -0.2504646711744323
+      },
+      {
+        "keyword": "revenue",
+        "coefficient": -0.24390882190230073
+      },
+      {
+        "keyword": "industry",
+        "coefficient": -0.24304228704821812
+      },
+      {
+        "keyword": "000",
+        "coefficient": -0.23882112152095894
+      },
+      {
+        "keyword": "education",
+        "coefficient": -0.2385642327518945
+      },
+      {
+        "keyword": "really",
+        "coefficient": -0.23756115772100286
+      },
+      {
+        "keyword": "year old",
+        "coefficient": -0.23580102136516334
+      },
+      {
+        "keyword": "quarter",
+        "coefficient": -0.23488507761011154
+      },
+      {
+        "keyword": "family",
+        "coefficient": -0.23276402134438876
+      },
+      {
+        "keyword": "games",
+        "coefficient": -0.22786435206142402
+      },
+      {
+        "keyword": "sales",
+        "coefficient": -0.22616454241343079
+      },
+      {
+        "keyword": "glitches",
+        "coefficient": -0.2239019998730286
+      },
+      {
+        "keyword": "1998",
+        "coefficient": -0.21734939082573462
+      },
+      {
+        "keyword": "police",
+        "coefficient": -0.21646883246805457
+      },
+      {
+        "keyword": "drivers",
+        "coefficient": -0.21417315801915496
+      },
+      {
+        "keyword": "news",
+        "coefficient": -0.20970064771581184
+      },
+      {
+        "keyword": "newstex",
+        "coefficient": -0.2095435471078142
+      },
+      {
+        "keyword": "think",
+        "coefficient": -0.20930845909102497
+      },
+      {
+        "keyword": "house",
+        "coefficient": -0.2074211840718522
+      }
+    ]
+  },
+  "pseudo_technical": {
+    "high": [
+      {
+        "keyword": "ipv6",
+        "coefficient": 0.23761133959812758
+      },
+      {
+        "keyword": "technology",
+        "coefficient": 0.22703476693721433
+      },
+      {
+        "keyword": "problems",
+        "coefficient": 0.21119886071862273
+      },
+      {
+        "keyword": "say",
+        "coefficient": 0.20499352650124247
+      },
+      {
+        "keyword": "just",
+        "coefficient": 0.18572887010674963
+      },
+      {
+        "keyword": "providers",
+        "coefficient": 0.1818431844897299
+      },
+      {
+        "keyword": "today",
+        "coefficient": 0.1815524753437706
+      },
+      {
+        "keyword": "roman",
+        "coefficient": 0.17860178865603016
+      },
+      {
+        "keyword": "web",
+        "coefficient": 0.1782458996949347
+      },
+      {
+        "keyword": "make",
+        "coefficient": 0.17733287130888367
+      },
+      {
+        "keyword": "times",
+        "coefficient": 0.17620903448103567
+      },
+      {
+        "keyword": "company",
+        "coefficient": 0.17496528984449566
+      },
+      {
+        "keyword": "internet",
+        "coefficient": 0.17349679961456635
+      },
+      {
+        "keyword": "ministry",
+        "coefficient": 0.17017209440634734
+      },
+      {
+        "keyword": "executives",
+        "coefficient": 0.17004625663862694
+      },
+      {
+        "keyword": "technologies",
+        "coefficient": 0.16930603799050326
+      },
+      {
+        "keyword": "companies",
+        "coefficient": 0.1677673915883653
+      },
+      {
+        "keyword": "issues",
+        "coefficient": 0.1666717567821996
+      },
+      {
+        "keyword": "dates",
+        "coefficient": 0.16480626710855475
+      },
+      {
+        "keyword": "external",
+        "coefficient": 0.16064181970425098
+      },
+      {
+        "keyword": "working",
+        "coefficient": 0.1599486992401978
+      },
+      {
+        "keyword": "increase",
+        "coefficient": 0.15962770237391527
+      },
+      {
+        "keyword": "2010",
+        "coefficient": 0.15709778947041217
+      },
+      {
+        "keyword": "numerals",
+        "coefficient": 0.15521838084341344
+      },
+      {
+        "keyword": "think",
+        "coefficient": 0.15449308027690836
+      },
+      {
+        "keyword": "systems",
+        "coefficient": 0.1542489432630361
+      },
+      {
+        "keyword": "numbers",
+        "coefficient": 0.15413202801011575
+      },
+      {
+        "keyword": "come",
+        "coefficient": 0.1540918738980198
+      },
+      {
+        "keyword": "process",
+        "coefficient": 0.15093069371502707
+      },
+      {
+        "keyword": "limited",
+        "coefficient": 0.14999484915042582
+      }
+    ],
+    "low": [
+      {
+        "keyword": "police",
+        "coefficient": -0.16007355430976306
+      },
+      {
+        "keyword": "02",
+        "coefficient": -0.15745029485862777
+      },
+      {
+        "keyword": "spacecraft",
+        "coefficient": -0.1547634308866059
+      },
+      {
+        "keyword": "shares",
+        "coefficient": -0.14841723556312597
+      },
+      {
+        "keyword": "2009",
+        "coefficient": -0.14676518481486653
+      },
+      {
+        "keyword": "press",
+        "coefficient": -0.13463168391273203
+      },
+      {
+        "keyword": "court",
+        "coefficient": -0.1339007915126127
+      },
+      {
+        "keyword": "mars",
+        "coefficient": -0.12882484526014382
+      },
+      {
+        "keyword": "fall",
+        "coefficient": -0.1285367558244991
+      },
+      {
+        "keyword": "2008",
+        "coefficient": -0.12778017892162363
+      },
+      {
+        "keyword": "trade",
+        "coefficient": -0.1265278557964521
+      },
+      {
+        "keyword": "oracle",
+        "coefficient": -0.12155219968358914
+      },
+      {
+        "keyword": "near",
+        "coefficient": -0.11433087441658363
+      },
+      {
+        "keyword": "foreign",
+        "coefficient": -0.11338857790336869
+      },
+      {
+        "keyword": "airline",
+        "coefficient": -0.11327542287326649
+      },
+      {
+        "keyword": "affected",
+        "coefficient": -0.11155278910796909
+      },
+      {
+        "keyword": "bought",
+        "coefficient": -0.11136684710129097
+      },
+      {
+        "keyword": "aboard",
+        "coefficient": -0.11115389783820596
+      },
+      {
+        "keyword": "city",
+        "coefficient": -0.11010455952237107
+      },
+      {
+        "keyword": "higher",
+        "coefficient": -0.10915314575573547
+      },
+      {
+        "keyword": "uk",
+        "coefficient": -0.10891332544650024
+      },
+      {
+        "keyword": "unemployment",
+        "coefficient": -0.10872788173393236
+      },
+      {
+        "keyword": "lottery",
+        "coefficient": -0.10759590522143203
+      },
+      {
+        "keyword": "tickets",
+        "coefficient": -0.10597489851978042
+      },
+      {
+        "keyword": "passengers",
+        "coefficient": -0.10492261059872815
+      },
+      {
+        "keyword": "news",
+        "coefficient": -0.1014301547447255
+      },
+      {
+        "keyword": "death",
+        "coefficient": -0.10128988995830358
+      },
+      {
+        "keyword": "blue",
+        "coefficient": -0.09804857538157831
+      },
+      {
+        "keyword": "missed",
+        "coefficient": -0.09531478877990797
+      },
+      {
+        "keyword": "game",
+        "coefficient": -0.09486279369992222
+      }
+    ]
+  },
+  "political": {
+    "high": [
+      {
+        "keyword": "government",
+        "coefficient": 0.35591313920167467
+      },
+      {
+        "keyword": "revenue",
+        "coefficient": 0.31948554853276995
+      },
+      {
+        "keyword": "president",
+        "coefficient": 0.312387906897087
+      },
+      {
+        "keyword": "pay",
+        "coefficient": 0.30298122457797483
+      },
+      {
+        "keyword": "customers",
+        "coefficient": 0.28268738298801516
+      },
+      {
+        "keyword": "months",
+        "coefficient": 0.269154182261847
+      },
+      {
+        "keyword": "staff",
+        "coefficient": 0.265887273917023
+      },
+      {
+        "keyword": "week",
+        "coefficient": 0.26273830451417646
+      },
+      {
+        "keyword": "efforts",
+        "coefficient": 0.25714543667962986
+      },
+      {
+        "keyword": "tax",
+        "coefficient": 0.25677859716234086
+      },
+      {
+        "keyword": "glitches",
+        "coefficient": 0.2554238989245871
+      },
+      {
+        "keyword": "services",
+        "coefficient": 0.2545437424873156
+      },
+      {
+        "keyword": "budget",
+        "coefficient": 0.2504045461796335
+      },
+      {
+        "keyword": "inconvenience",
+        "coefficient": 0.24929793227952446
+      },
+      {
+        "keyword": "report",
+        "coefficient": 0.24846334776789386
+      },
+      {
+        "keyword": "2010",
+        "coefficient": 0.24793812709301147
+      },
+      {
+        "keyword": "firefighters",
+        "coefficient": 0.24576246878825359
+      },
+      {
+        "keyword": "2011",
+        "coefficient": 0.24319916013398327
+      },
+      {
+        "keyword": "accounts",
+        "coefficient": 0.24230838182763323
+      },
+      {
+        "keyword": "month",
+        "coefficient": 0.24091613146210689
+      },
+      {
+        "keyword": "technology",
+        "coefficient": 0.24086598414777297
+      },
+      {
+        "keyword": "financial",
+        "coefficient": 0.23676018215942649
+      },
+      {
+        "keyword": "industry",
+        "coefficient": 0.23168447036411902
+      },
+      {
+        "keyword": "want",
+        "coefficient": 0.2255752548407953
+      },
+      {
+        "keyword": "improve",
+        "coefficient": 0.22331062691006584
+      },
+      {
+        "keyword": "success",
+        "coefficient": 0.22194683907030185
+      },
+      {
+        "keyword": "senior",
+        "coefficient": 0.2188011357998592
+      },
+      {
+        "keyword": "anz",
+        "coefficient": 0.21696352137980326
+      },
+      {
+        "keyword": "analyst",
+        "coefficient": 0.2164327771267266
+      },
+      {
+        "keyword": "delays",
+        "coefficient": 0.21514704442676763
+      }
+    ],
+    "low": [
+      {
+        "keyword": "powerball",
+        "coefficient": -0.44969258959060615
+      },
+      {
+        "keyword": "spacecraft",
+        "coefficient": -0.4038173280695483
+      },
+      {
+        "keyword": "space",
+        "coefficient": -0.3922262960675428
+      },
+      {
+        "keyword": "satellite",
+        "coefficient": -0.3834940135086192
+      },
+      {
+        "keyword": "lottery",
+        "coefficient": -0.3666293271509898
+      },
+      {
+        "keyword": "ohio",
+        "coefficient": -0.33815336591402867
+      },
+      {
+        "keyword": "technical glitch",
+        "coefficient": -0.3363224782764325
+      },
+      {
+        "keyword": "drawing",
+        "coefficient": -0.31698267160578125
+      },
+      {
+        "keyword": "cargo",
+        "coefficient": -0.306989152219701
+      },
+      {
+        "keyword": "lines",
+        "coefficient": -0.30476561442380545
+      },
+      {
+        "keyword": "tickets",
+        "coefficient": -0.30340328900689645
+      },
+      {
+        "keyword": "code",
+        "coefficient": -0.3025285244972113
+      },
+      {
+        "keyword": "water",
+        "coefficient": -0.30069350447609133
+      },
+      {
+        "keyword": "center",
+        "coefficient": -0.30027245419548904
+      },
+      {
+        "keyword": "control",
+        "coefficient": -0.2952781045653213
+      },
+      {
+        "keyword": "nasa",
+        "coefficient": -0.2926962649913234
+      },
+      {
+        "keyword": "rocket",
+        "coefficient": -0.29113149410607303
+      },
+      {
+        "keyword": "data",
+        "coefficient": -0.28735978668435075
+      },
+      {
+        "keyword": "game",
+        "coefficient": -0.2846541444439893
+      },
+      {
+        "keyword": "chance",
+        "coefficient": -0.2782738775146226
+      },
+      {
+        "keyword": "fares",
+        "coefficient": -0.2688090088849746
+      },
+      {
+        "keyword": "docking",
+        "coefficient": -0.268342530006267
+      },
+      {
+        "keyword": "bought",
+        "coefficient": -0.26654966332892
+      },
+      {
+        "keyword": "vehicle",
+        "coefficient": -0.26495886952234576
+      },
+      {
+        "keyword": "flight",
+        "coefficient": -0.2500851870220522
+      },
+      {
+        "keyword": "memory",
+        "coefficient": -0.2420081834638602
+      },
+      {
+        "keyword": "miles",
+        "coefficient": -0.24108644935601237
+      },
+      {
+        "keyword": "friends",
+        "coefficient": -0.2384573156292725
+      },
+      {
+        "keyword": "discovered",
+        "coefficient": -0.23667066863210426
+      },
+      {
+        "keyword": "winning",
+        "coefficient": -0.23586716743936828
+      }
+    ]
+  }
+}

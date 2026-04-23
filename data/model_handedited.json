@@ -1,0 +1,740 @@
+{
+  "technical": {
+    "high": [
+      {
+        "keyword": "bug",
+        "coefficient": 0.07770772537651988
+      },
+      {
+        "keyword": "bit",
+        "coefficient": 0.07125112404507139
+      },
+      {
+        "keyword": "lock",
+        "coefficient": 0.06550162552735078
+      },
+      {
+        "keyword": "sent",
+        "coefficient": 0.06416848705921507
+      },
+      {
+        "keyword": "code",
+        "coefficient": 0.06108603763441732
+      },
+      {
+        "keyword": "object",
+        "coefficient": 0.059074039478712356
+      },
+      {
+        "keyword": "correct",
+        "coefficient": 0.0577924373374299
+      },
+      {
+        "keyword": "program",
+        "coefficient": 0.05742818684098879
+      },
+      {
+        "keyword": "function",
+        "coefficient": 0.05596194293517188
+      },
+      {
+        "keyword": "statement",
+        "coefficient": 0.05563218612423367
+      },
+      {
+        "keyword": "data",
+        "coefficient": 0.05473908780975713
+      },
+      {
+        "keyword": "pm pdt",
+        "coefficient": 0.05192741689134469
+      },
+      {
+        "keyword": "contained",
+        "coefficient": 0.05148772890229982
+      },
+      {
+        "keyword": "eu",
+        "coefficient": 0.050623558952796334
+      },
+      {
+        "keyword": "center",
+        "coefficient": 0.05038617782600897
+      },
+      {
+        "keyword": "december",
+        "coefficient": 0.05021953429850988
+      },
+      {
+        "keyword": "error",
+        "coefficient": 0.049370683915077124
+      },
+      {
+        "keyword": "load balancer",
+        "coefficient": 0.04704604827842019
+      },
+      {
+        "keyword": "case",
+        "coefficient": 0.046972643718706325
+      },
+      {
+        "keyword": "size",
+        "coefficient": 0.04689257465919899
+      },
+      {
+        "keyword": "data centers",
+        "coefficient": 0.04664766584724693
+      },
+      {
+        "keyword": "character",
+        "coefficient": 0.04614307881921171
+      },
+      {
+        "keyword": "space",
+        "coefficient": 0.04606426506272972
+      },
+      {
+        "keyword": "flight",
+        "coefficient": 0.046049059381385676
+      },
+      {
+        "keyword": "load balancers",
+        "coefficient": 0.045692382816279443
+      },
+      {
+        "keyword": "balancers",
+        "coefficient": 0.045692382816279443
+      },
+      {
+        "keyword": "balancer",
+        "coefficient": 0.04558943920633729
+      },
+      {
+        "keyword": "incorrect",
+        "coefficient": 0.04537034895706297
+      },
+      {
+        "keyword": "load",
+        "coefficient": 0.045179909658595356
+      },
+      {
+        "keyword": "seconds",
+        "coefficient": 0.0449222526181028
+      }
+    ],
+    "low": [
+      {
+        "keyword": "posted",
+        "coefficient": -0.17958126632152674
+      },
+      {
+        "keyword": "currently",
+        "coefficient": -0.1156131003277444
+      },
+      {
+        "keyword": "investigating",
+        "coefficient": -0.09404501806352834
+      },
+      {
+        "keyword": "thank",
+        "coefficient": -0.08256939605554668
+      },
+      {
+        "keyword": "github",
+        "coefficient": -0.08066339540653476
+      },
+      {
+        "keyword": "provide update",
+        "coefficient": -0.07960917114530754
+      },
+      {
+        "keyword": "expect",
+        "coefficient": -0.07821320627310449
+      },
+      {
+        "keyword": "workaround",
+        "coefficient": -0.07326954455921598
+      },
+      {
+        "keyword": "remain",
+        "coefficient": -0.07240015167968492
+      },
+      {
+        "keyword": "morning",
+        "coefficient": -0.07191777197125031
+      },
+      {
+        "keyword": "want",
+        "coefficient": -0.0691285140835291
+      },
+      {
+        "keyword": "delays",
+        "coefficient": -0.06565506243424292
+      },
+      {
+        "keyword": "attack",
+        "coefficient": -0.06426000514991334
+      },
+      {
+        "keyword": "pdt",
+        "coefficient": -0.06374143977413584
+      },
+      {
+        "keyword": "basecamp",
+        "coefficient": -0.06361999890752758
+      },
+      {
+        "keyword": "money",
+        "coefficient": -0.06360783142057716
+      },
+      {
+        "keyword": "exchanges",
+        "coefficient": -0.06316764371447818
+      },
+      {
+        "keyword": "best",
+        "coefficient": -0.060753795900281085
+      },
+      {
+        "keyword": "hours",
+        "coefficient": -0.059641648027914405
+      },
+      {
+        "keyword": "01",
+        "coefficient": -0.05960545496901557
+      },
+      {
+        "keyword": "monitoring",
+        "coefficient": -0.05960028638779419
+      },
+      {
+        "keyword": "site",
+        "coefficient": -0.05929411439490381
+      },
+      {
+        "keyword": "sure",
+        "coefficient": -0.059027587435406786
+      },
+      {
+        "keyword": "performance",
+        "coefficient": -0.0587543940639105
+      },
+      {
+        "keyword": "work",
+        "coefficient": -0.058637383528956734
+      },
+      {
+        "keyword": "continue",
+        "coefficient": -0.058068030571696794
+      },
+      {
+        "keyword": "sms",
+        "coefficient": -0.057793060934779546
+      },
+      {
+        "keyword": "pattern",
+        "coefficient": -0.05724062184907557
+      },
+      {
+        "keyword": "repositories",
+        "coefficient": -0.05691012303969833
+      },
+      {
+        "keyword": "quick",
+        "coefficient": -0.0547542522897896
+      }
+    ]
+  },
+  "pseudo_technical": {
+    "high": [
+      {
+        "keyword": "deployment",
+        "coefficient": 0.05847578714579324
+      },
+      {
+        "keyword": "attack",
+        "coefficient": 0.055628421812171265
+      },
+      {
+        "keyword": "traffic",
+        "coefficient": 0.05527081929148542
+      },
+      {
+        "keyword": "build",
+        "coefficient": 0.05203041442971201
+      },
+      {
+        "keyword": "facebook",
+        "coefficient": 0.050227453368856714
+      },
+      {
+        "keyword": "services",
+        "coefficient": 0.04996369230770665
+      },
+      {
+        "keyword": "github",
+        "coefficient": 0.04809121174619259
+      },
+      {
+        "keyword": "network",
+        "coefficient": 0.047445446464782014
+      },
+      {
+        "keyword": "production",
+        "coefficient": 0.04550064668305957
+      },
+      {
+        "keyword": "experience",
+        "coefficient": 0.042933880722774063
+      },
+      {
+        "keyword": "capacity",
+        "coefficient": 0.04197173584517612
+      },
+      {
+        "keyword": "builds",
+        "coefficient": 0.04171939233250973
+      },
+      {
+        "keyword": "usage",
+        "coefficient": 0.03998346681044971
+      },
+      {
+        "keyword": "backbone",
+        "coefficient": 0.039310666960066194
+      },
+      {
+        "keyword": "unavailable",
+        "coefficient": 0.03883353384129018
+      },
+      {
+        "keyword": "infrastructure",
+        "coefficient": 0.038676886038211594
+      },
+      {
+        "keyword": "images",
+        "coefficient": 0.03866615052256454
+      },
+      {
+        "keyword": "facilities",
+        "coefficient": 0.03808979605255355
+      },
+      {
+        "keyword": "ddos",
+        "coefficient": 0.037431451089420066
+      },
+      {
+        "keyword": "operations",
+        "coefficient": 0.036977269085581965
+      },
+      {
+        "keyword": "transit",
+        "coefficient": 0.03682482942192881
+      },
+      {
+        "keyword": "day",
+        "coefficient": 0.03550921789383312
+      },
+      {
+        "keyword": "gce",
+        "coefficient": 0.0351691391600672
+      },
+      {
+        "keyword": "platforms",
+        "coefficient": 0.034971602635760525
+      },
+      {
+        "keyword": "issues",
+        "coefficient": 0.034580683673107404
+      },
+      {
+        "keyword": "figure",
+        "coefficient": 0.03395774384607673
+      },
+      {
+        "keyword": "orders",
+        "coefficient": 0.033764276975670235
+      },
+      {
+        "keyword": "db",
+        "coefficient": 0.03361395623401019
+      },
+      {
+        "keyword": "availability",
+        "coefficient": 0.03352689046632915
+      },
+      {
+        "keyword": "incident",
+        "coefficient": 0.033445538865665425
+      }
+    ],
+    "low": [
+      {
+        "keyword": "bug",
+        "coefficient": -0.0521286227017834
+      },
+      {
+        "keyword": "error",
+        "coefficient": -0.050044488507912016
+      },
+      {
+        "keyword": "computer",
+        "coefficient": -0.048419502009300334
+      },
+      {
+        "keyword": "bit",
+        "coefficient": -0.04700902944046563
+      },
+      {
+        "keyword": "memory",
+        "coefficient": -0.04109342696622719
+      },
+      {
+        "keyword": "pdt",
+        "coefficient": -0.03975213813878045
+      },
+      {
+        "keyword": "api",
+        "coefficient": -0.039219147639105514
+      },
+      {
+        "keyword": "accept",
+        "coefficient": -0.037784438138616566
+      },
+      {
+        "keyword": "function",
+        "coefficient": -0.03669935562009834
+      },
+      {
+        "keyword": "write",
+        "coefficient": -0.03570961626808127
+      },
+      {
+        "keyword": "eu",
+        "coefficient": -0.03545407814629176
+      },
+      {
+        "keyword": "route",
+        "coefficient": -0.03513340323249965
+      },
+      {
+        "keyword": "message",
+        "coefficient": -0.034775683157554235
+      },
+      {
+        "keyword": "statement",
+        "coefficient": -0.034246257031350404
+      },
+      {
+        "keyword": "incorrect",
+        "coefficient": -0.032958795543873494
+      },
+      {
+        "keyword": "list",
+        "coefficient": -0.03242996956920435
+      },
+      {
+        "keyword": "object",
+        "coefficient": -0.03156615792431966
+      },
+      {
+        "keyword": "packages",
+        "coefficient": -0.031177966344109378
+      },
+      {
+        "keyword": "morning",
+        "coefficient": -0.03040830983106664
+      },
+      {
+        "keyword": "deleted",
+        "coefficient": -0.02987248080342162
+      },
+      {
+        "keyword": "pm",
+        "coefficient": -0.02939535457561765
+      },
+      {
+        "keyword": "error rates",
+        "coefficient": -0.02860547556762126
+      },
+      {
+        "keyword": "restart",
+        "coefficient": -0.028125933396452894
+      },
+      {
+        "keyword": "uses",
+        "coefficient": -0.027948507442793407
+      },
+      {
+        "keyword": "validation",
+        "coefficient": -0.027905994786993727
+      },
+      {
+        "keyword": "quite",
+        "coefficient": -0.027732066410208932
+      },
+      {
+        "keyword": "01",
+        "coefficient": -0.027506957765968787
+      },
+      {
+        "keyword": "library",
+        "coefficient": -0.027203133849990454
+      },
+      {
+        "keyword": "overflow",
+        "coefficient": -0.026617881180461763
+      },
+      {
+        "keyword": "tables",
+        "coefficient": -0.026277846086921176
+      }
+    ]
+  },
+  "political": {
+    "high": [
+      {
+        "keyword": "google",
+        "coefficient": 0.1797556150822256
+      },
+      {
+        "keyword": "cloud",
+        "coefficient": 0.15400414513110275
+      },
+      {
+        "keyword": "google cloud",
+        "coefficient": 0.13125742996592998
+      },
+      {
+        "keyword": "thank",
+        "coefficient": 0.1292132497888696
+      },
+      {
+        "keyword": "continue",
+        "coefficient": 0.1219520178461954
+      },
+      {
+        "keyword": "basecamp",
+        "coefficient": 0.11203643653840746
+      },
+      {
+        "keyword": "apologize",
+        "coefficient": 0.11046584185661262
+      },
+      {
+        "keyword": "customers",
+        "coefficient": 0.10473337850985191
+      },
+      {
+        "keyword": "incident",
+        "coefficient": 0.10471116410419219
+      },
+      {
+        "keyword": "improve",
+        "coefficient": 0.10419852835533756
+      },
+      {
+        "keyword": "instances",
+        "coefficient": 0.10230679917907613
+      },
+      {
+        "keyword": "service",
+        "coefficient": 0.09557959434351442
+      },
+      {
+        "keyword": "attack",
+        "coefficient": 0.0923868532487213
+      },
+      {
+        "keyword": "customer",
+        "coefficient": 0.08438436329010288
+      },
+      {
+        "keyword": "support",
+        "coefficient": 0.0827866593428612
+      },
+      {
+        "keyword": "inconvenience",
+        "coefficient": 0.08190140699866602
+      },
+      {
+        "keyword": "sorry",
+        "coefficient": 0.08089980895919512
+      },
+      {
+        "keyword": "february",
+        "coefficient": 0.08085484403004597
+      },
+      {
+        "keyword": "pacific",
+        "coefficient": 0.07971350237511364
+      },
+      {
+        "keyword": "hours",
+        "coefficient": 0.07643153575710608
+      },
+      {
+        "keyword": "users",
+        "coefficient": 0.07570642915915828
+      },
+      {
+        "keyword": "jobs",
+        "coefficient": 0.07473223677164892
+      },
+      {
+        "keyword": "zone",
+        "coefficient": 0.07452672057551082
+      },
+      {
+        "keyword": "patience",
+        "coefficient": 0.07311882395772741
+      },
+      {
+        "keyword": "impact",
+        "coefficient": 0.07302868956681112
+      },
+      {
+        "keyword": "party",
+        "coefficient": 0.0728174733903639
+      },
+      {
+        "keyword": "github",
+        "coefficient": 0.07214735195430794
+      },
+      {
+        "keyword": "best",
+        "coefficient": 0.07150346124970278
+      },
+      {
+        "keyword": "availability",
+        "coefficient": 0.07013306585137108
+      },
+      {
+        "keyword": "site",
+        "coefficient": 0.06967393662741515
+      }
+    ],
+    "low": [
+      {
+        "keyword": "query",
+        "coefficient": -0.13138426216754212
+      },
+      {
+        "keyword": "memory",
+        "coefficient": -0.11382951591741047
+      },
+      {
+        "keyword": "sequence",
+        "coefficient": -0.10207134443021547
+      },
+      {
+        "keyword": "manta",
+        "coefficient": -0.09726616267791556
+      },
+      {
+        "keyword": "bit",
+        "coefficient": -0.09690052000959562
+      },
+      {
+        "keyword": "seconds",
+        "coefficient": -0.09547746703682108
+      },
+      {
+        "keyword": "function",
+        "coefficient": -0.09123020512583449
+      },
+      {
+        "keyword": "stage",
+        "coefficient": -0.08673968726269209
+      },
+      {
+        "keyword": "spacecraft",
+        "coefficient": -0.08571666301048173
+      },
+      {
+        "keyword": "error",
+        "coefficient": -0.08503916808307659
+      },
+      {
+        "keyword": "program",
+        "coefficient": -0.08345513242196391
+      },
+      {
+        "keyword": "queries",
+        "coefficient": -0.080335586597377
+      },
+      {
+        "keyword": "transactions",
+        "coefficient": -0.07980128473845947
+      },
+      {
+        "keyword": "switches",
+        "coefficient": -0.07868609370263552
+      },
+      {
+        "keyword": "dynamodb",
+        "coefficient": -0.07725179802458573
+      },
+      {
+        "keyword": "worth",
+        "coefficient": -0.07671111493344607
+      },
+      {
+        "keyword": "tables",
+        "coefficient": -0.07446262259365717
+      },
+      {
+        "keyword": "commit",
+        "coefficient": -0.0734365091931724
+      },
+      {
+        "keyword": "channel",
+        "coefficient": -0.07209568351439226
+      },
+      {
+        "keyword": "computer",
+        "coefficient": -0.07133566608945119
+      },
+      {
+        "keyword": "space",
+        "coefficient": -0.07125915455477567
+      },
+      {
+        "keyword": "mars",
+        "coefficient": -0.07058327353035553
+      },
+      {
+        "keyword": "flight",
+        "coefficient": -0.07035237847505509
+      },
+      {
+        "keyword": "lines",
+        "coefficient": -0.06907836744825163
+      },
+      {
+        "keyword": "line",
+        "coefficient": -0.06847621957185863
+      },
+      {
+        "keyword": "membership",
+        "coefficient": -0.06842129195712986
+      },
+      {
+        "keyword": "generated",
+        "coefficient": -0.06724034039342802
+      },
+      {
+        "keyword": "parent",
+        "coefficient": -0.06643043390276489
+      },
+      {
+        "keyword": "replica",
+        "coefficient": -0.06582314039387736
+      },
+      {
+        "keyword": "flag",
+        "coefficient": -0.06495715206562049
+      }
+    ]
+  }
+}

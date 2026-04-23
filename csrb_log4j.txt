@@ -1,0 +1,1077 @@
+Review of the December
+2021 Log4j Event
+
+We write this report at a transformational moment for the digital ecosystem. The infrastructure on which we
+rely daily has become deeply interconnected through the use of shared communications, software, and
+hardware, making it susceptible to vulnerabilities on a global scale. While the computing industry is maturing,
+our ability to handle risk and incidents in our digital ecosystems is not keeping pace. To address this gap, and
+to begin driving necessary systemic improvements, President Biden directed the establishment of the Cyber
+Safety Review Board (CSRB, or the Board) to review significant cyber incidents and provide “advice,
+information, or recommendations for improving cybersecurity and incident response practices and policy.”1
+We were honored to take the helm of the CSRB at this critical juncture. To advance the overall security and
+resiliency of our digital ecosystem, we applaud the application of this highly effective lessons-learned model
+from other industries. With the discovery of major software vulnerabilities and gaps in our capabilities to
+effectively mitigate them, we believe this effort will help drive improvements in our overall cyber resiliency.
+The Board’s first charge was to review the events surrounding the December 2021 disclosure of the Log4j
+vulnerability. Log4j is a piece of open source software that developers have integrated into millions of systems.
+A vulnerability in such a pervasive and ubiquitous piece of software has the ability to impact companies and
+organizations (including governments) all over the world. As such, the Log4j event drives home the urgency
+with which we must move to a culture of shared responsibility around managing cyber threats. The scope of
+this report, and to whom we are directing the recommendations, reflect this observation.
+The review of the Log4j event presented the Board with several challenges. First, unlike comparable studies of
+incidents in other sectors (such as transportation), we had no crash site or damaged vehicle to inspect, no
+stress tests to perform on failed equipment, and no wiring diagrams to review. Instead, we reviewed practices
+used to create and adopt technology, ecosystems, and processes. We relied on subject matter experts in open
+source software, its development, deployment, and maintenance. In our discussions, we observed enthusiasm
+for tackling these issues, and also the community’s desire to have a more fulsome picture of where
+vulnerabilities lie, which of them are exploitable, and the effectiveness of remediations.
+Second, the Log4j event is not over. Log4j remains deeply embedded in systems, and even within the short
+period available for our review, community stakeholders have identified new compromises, new threat actors,
+and new learnings. We must remain vigilant against the risks associated with this vulnerability, and apply the
+best practices described in this review.
+Third, there is a real need to drive widespread development and adoption of capabilities, tooling, and
+automated frameworks that support developers with the daunting task of building secure software. Just as the
+software industry has enabled the democratization of software programming—the ability for anyone to generate
+software with little or no formal training—we must also democratize security by baking security by default into
+the platforms used to generate, build, deploy, and manage software at scale.
+An open question at the start of our work was the extent to which we would receive voluntary cooperation from
+industry stakeholders. We have been heartened by the outpouring of offers from industry to support the
+Board’s review through insights and data. We have spoken with and received data from a substantial number
+of companies and security experts. We believe industry has come to understand that the Board is not an
+enforcement or regulatory body and is not focused on assigning blame. The Board instead looks forward,
+making recommendations to better secure the community for the future. We give thanks to the many
+companies and individual experts that offered their support for the Board’s comprehensive review.
+As this was the inaugural review for the Board, we humbly sought to create the foundations for a sustainable
+and impactful body that would drive systemic improvements. At our first meeting on February 25, 2022, we
+agreed to a set of principles, both for this review and beyond, that embody this Board’s commitment to public
+service, transparency and trust, and objective, forward-looking reviews. See Appendix A for the principles that
+guided the Board’s work throughout our review.
+
+EXECUTIVE SUMMARY
+The scale and efficiency of our global technology infrastructure are made possible through the standardization
+of key building blocks. These reusable building blocks, while useful for creating software at scale, also create
+dependencies and risks that are often not understood until they manifest as a security issue. For example, a
+vulnerability in a software building block that is integrated into numerous other software packages means that
+every organization that uses those packages is at risk. It also means that system owners may not know where
+vulnerable software lives within their environments. When such a vulnerability is also easy for a threat actor to
+exploit to obtain broad control over a compromised system, it can create a once-in-a-generation security event.
+This is what happened with the Log4j vulnerability that came to public attention in December 2021.
+Apache Log4j is an open source Java-based logging framework that collects and manages information about
+system activity. Log4j is simple to use, free to download, and effective in its intended function, making it
+popular among Java developers, who have embedded it into thousands of other software packages. Log4j
+version 2, the primary topic of this report, was initially released in 2012. In 2013, prior to the general
+availability release in 2014 and through a standard process, the Log4j team accepted a community-submitted
+feature intended to ease data storage and retrieval called “JNDI [Java Naming and Directory Interface™]
+Lookup plugin support.” This addition was subsequently integrated into thousands of applications in which
+Log4j is used.
+On November 24, 2021, a security engineer from the Alibaba Cloud Security team, within the People’s
+Republic of China (PRC), reported a vulnerability in the JNDI feature to the Apache Software Foundation (ASF),
+a non-profit corporation that provides support for the Log4j project.2, 3 While ASF was working to understand
+the issue and devise a fix, another party disclosed the vulnerability before ASF made an upgrade available to
+the general public. Such a disclosure of a significant vulnerability in any widely used piece of software
+immediately triggers a race between defense and offense: a race to apply upgrades before threat actors exploit
+vulnerable systems. The Log4j vulnerability was no exception.
+Defenders faced a particularly challenging situation; the vulnerability impacted virtually every networked
+organization and the severity of the threat required fast action. The fact that there is no comprehensive
+“customer list” for Log4j, or even a list of where it is integrated as a sub-system, hindered defender progress.
+Enterprises and vendors scrambled to discover where they used Log4j. The pace, pressure, and publicity
+compounded the defensive challenges: security researchers quickly found additional vulnerabilities in Log4j,
+contributing to confusion and “patching fatigue”; defenders struggled to distinguish vulnerability scanning by
+bona fide researchers from threat actors; and responders found it difficult to find authoritative sources of
+information on how to address the issues. This culminated in one of the most intensive cybersecurity
+community responses in history.
+Responders, spanning the public and private sectors, the open source community, and researchers globally,
+collaborated and communicated in a dedicated fashion, working through weekends and the December
+holidays. The Board noted high levels of cooperation, extensive use of social media for rapid sharing of
+mitigation advice, innovative response actions from the Department of Homeland Security’s (DHS)
+Cybersecurity and Infrastructure Security Agency (CISA), and the creation of new shared community resources.
+Generally, the Cyber Safety Review Board (CSRB, or the Board) found that organizations that responded most
+effectively to the Log4j event understood their use of Log4j and had technical resources and mature processes
+to manage assets, assess risk, and mobilize their organization and key partners to action. Most modern
+security frameworks call out these capabilities as best practices. However, few organizations were able to
+execute this kind of response, or the speed required during this incident, causing delays in both their
+assessment of the risk and in their management of it. When ASF made upgrades for Log4j available, deploying
+them was itself a risk decision, forcing a tradeoff between possible operational disruption and timeliness,
+completeness, and compensating controls.
+Organizations spent significant resources as they struggled with this problem. For example, one federal cabinet
+department reported dedicating 33,000 hours to Log4j vulnerability response to protect the department’s own 
+networks. These costs, often sustained over many weeks and months, delayed other mission-critical work,
+including the response to other vulnerabilities.
+For the long term, we will continue to see the tension between our collective need for crisis-driven risk
+management and the foundational investments that would support more rapid response for future incidents.
+Perhaps most significantly, the force exerted on the urgent response and the challenges in managing risk also
+contributed to professional “burnout” among defenders that may, compounded with the generally intense pace
+of many cybersecurity jobs, have a long-term impact on the availability of cybersecurity talent.
+At the time of writing, the Board is not aware of any significant Log4j-based attacks on critical infrastructure
+systems. Somewhat surprisingly, the Board also found that to date, generally speaking, exploitation of Log4j
+occurred at lower levels than many experts predicted, given the severity of the vulnerability. It has been difficult
+to arrive at this conclusion. While cybersecurity vendors were able to provide some anecdotal evidence of
+exploitation, no authoritative source exists to understand exploitation trends across geographies, industries, or
+ecosystems. Many organizations do not even collect information on specific Log4j exploitation, and reporting is
+still largely voluntary.
+Most importantly, however, the Log4j event is not over. The Board assesses that Log4j is an “endemic
+vulnerability” and that vulnerable instances of Log4j will remain in systems for many years to come, perhaps a
+decade or longer. Significant risk remains.
+The Log4j event illustrates how counterintuitive cybersecurity defense can be, for both individual enterprises
+and for the ecosystem as a whole. Many things went “right”: ASF had a well-established software development
+lifecycle with clear roles for vetting, testing, and approving new code; security researchers followed generally
+accepted steps of coordinated disclosure; ASF recognized the criticality of the problem and software
+developers made upgrades available; vendors and governments rapidly produced guidance, tools, and threat
+information, often in novel and beneficial ways; and the whole ecosystem rallied behind a collective sense of
+urgency. Yet organizations still struggled to respond to the event, and the hard work of upgrading vulnerable
+software is far from complete across many organizations.
+The event also called attention to security risks unique to the thinly-resourced, volunteer-based open source
+community. This community is not adequately resourced to ensure that code is developed pursuant to industry-
+recognized secure coding practices and audited by experts. To reduce recurrence of the introduction of
+vulnerabilities like Log4j, it is essential that public and private sector stakeholders create centralized
+resourcing and security assistance structures that can support the open source community going forward.
+In the course of the review, the Board also evaluated press reports suggesting that Alibaba violated PRC law
+and was subsequently sanctioned by the PRC government. The Board could not identify any publicly available
+official explanation, and while the PRC government provided a statement to the Board about the Log4j event
+on behalf of the Ministry of Industry and Information Technology (MIIT), it did not provide an answer to the
+Board’s request for information about any sanction imposed on Alibaba. This line of inquiry raised Board
+concerns around the mandatory vulnerability disclosure laws in the PRC and whether their enforcement may
+afford the PRC government early access to serious, exploitable vulnerabilities before they are patched. The
+Board raised similar concerns about whether these laws and reports of the PRC’s alleged decision to sanction
+Alibaba for responsibly reporting a vulnerability to ASF will create a chilling effect that deters researchers from
+using coordinated vulnerability disclosure best practices.
+The CSRB’s mandate was to review the events surrounding this consequential vulnerability, report on lessons
+learned, and make independent, strategic, and actionable recommendations to the Secretary of Homeland
+Security. Using data collected from extensive interviews and requests for information, we have framed our
+report in three sections: Factual Information (facts describing what happened); Findings and Conclusions (an
+analysis of the facts); and Recommendations. The Recommendations are broken into four categories.
+Address Continued Risks of Log4j: continued vigilance in addressing Log4j vulnerabilities for the long term.
+1. Organizations should be prepared to address Log4j vulnerabilities for years to come.
+2. Organizations should continue to report (and escalate) observations of Log4j exploitation.
+3. CISA should expand its capability to develop, coordinate, and publish authoritative cyber risk
+information.
+4. Federal and state regulators should drive implementation of CISA guidance through their own
+regulatory authorities.
+Drive Existing Best Practices for Security Hygiene: adopt industry-accepted practices and standards for
+vulnerability management and security hygiene.
+5. Organizations should invest in capabilities to identify vulnerable systems.
+6. Develop the capacity to maintain an accurate information technology (IT) asset and
+application inventory.
+7. Organizations should have a documented vulnerability response program.
+8. Organizations should have a documented vulnerability disclosure and handling process.
+9. Software developers and maintainers should implement secure software practices.
+Build a Better Software Ecosystem: drive a transformation in the software ecosystem to move to a
+proactive model of vulnerability management.
+10. Open source software developers should participate in community-based security initiatives.
+11. Invest in training software developers in secure software development.
+12. Improve Software Bill of Materials (SBOM) tooling and adoptability.
+13. Increase investments in open source software security.
+14. Pilot open source software maintenance support for critical services.
+Investments in the Future: pursue cultural and technological shifts necessary to solve for the nation’s
+digital security for the long run.
+15. Explore a baseline requirement for software transparency for federal government vendors.
+16. Examine the efficacy of a Cyber Safety Reporting System (CSRS).
+17. Explore the feasibility of establishing a Software Security Risk Assessment Center of
+Excellence (SSRACE).
+18. Study the incentive structures required to build secure software.
+19. Establish a government-coordinated working group to improve identification of software with
+known vulnerabilities.
+REVIEW METHODOLOGY
+The Board engaged with nearly 80 organizations and individuals representing software developers, end users,
+security professionals, and companies. These engagements included a mixture of interviews and requests for
+information. The Board is grateful for the voluntary participation of these parties that came forward and
+provided timely responses. Their efforts helped the Board collect the observable timeline of events,
+corroborate facts, and understand the complex dimensions of the Log4j event.
+The Board sought to speak to representatives from a wide variety of viewpoints, to capture the nuances of how
+different attack surfaces are designed and defended. We acknowledge that in the 90-day review period, we
+were not able to reach all sectors and that some, such as medical devices, Internet-of-Things (IoT), and home
+networking equipment, may have alternative experiences not captured in this report. Similarly, we recognize
+that organizations outside of the United States may have experienced the Log4j event in unique ways.
+Nonetheless, we believe the Board's findings and recommendations apply to a wide variety of global
+organizations, given the interconnected nature of the stakeholders from whom we did hear. See Appendix B for
+a list of participating organizations and individuals.
+This report is divided into three major sections:
+Section 1: Factual Information, provides a timeline of the Log4j vulnerability’s progression, as well as
+the key facts of what happened during the event;
+Section 2: Findings and Conclusions, presents the Board’s key findings with respect to the Log4j
+event; and
+Section 3: Recommendations, outlines action items the Board recommends for a variety of
+stakeholders in the private and public sector.
+Taken together, these sections tell the story of Log4j and the key stakeholders impacted and provide both
+industry and government alike with a set of lessons learned that can be applied to prevent or respond more
+effectively to future incidents.
+A Note on Terminology
+To simplify the readability of this report, references to Apache Log4j (the original Log4j package) and Apache
+Log4j 2 (version 2) will be shorted to Log4j. The primary vulnerability at the center of the event and this review
+(CVE-2021-44228) will be known as the Log4j vulnerability, unless further specificity is useful.
+SECTION 1 – FACTUAL INFORMATION
+Log4j is an open source Java-based logging framework that collects and manages information about system
+activity. Since the software’s inception in 1999, it has become a popular building block for the ecosystem, with
+developers incorporating Log4j into thousands of other software packages globally. A group of volunteers
+maintain Log4j under the Apache Software Foundation’s (ASF) Apache Logging Services™ Project.4
+1.1 GENESIS OF THE VULNERABILITY
+In July 2013, a member of the open source community requested the addition of a new data storage and
+retrieval mechanism (“Java Naming and Directory Interface™ [JNDI] Lookup plugin support”) to the Log4j
+project.5 The requester provided a software patch that implemented the requested functionality, which the
+Log4j project team reviewed and committed on July 18, 2013 for release in version 2.0-beta9.6 The
+vulnerability was due to the following technical reason:
+JNDI features used in configuration, log messages, and parameters do not protect against attacker controlled
+LDAP [Lightweight Directory Access Protocol] and other JNDI related endpoints. An attacker who can control log
+messages or log message parameters can execute arbitrary code loaded from LDAP servers when message
+lookup substitution is enabled.7
+This means an attacker who gains access to logging messages could inject fraudulent messages that enable
+arbitrary code execution and exploitation of a vulnerable system.8
+See Appendix C for additional information on Log4j development and deployment and JNDI-related risks.
+1.2 DISCOVERY AND DISCLOSURE
+On November 24, 2021, a security engineer from the Alibaba9 Cloud Security team in the People’s Republic of
+China (PRC) reported the discovery of a vulnerability in Log4j to ASF via email.10 The engineer included
+pertinent information about the vulnerability, including a description of the issue, a pointer to the vulnerable
+code, a proof of concept, and screenshots.11
+Once ASF became aware of the vulnerability, its intent was to develop a patch as quickly as possible, in
+accordance with its policy. ASF also assessed that, due to the widespread use of Log4j, placing an embargo12
+on the vulnerability would be impractical.13 ASF began reviewing code for the fix as early as November 29,
+2021 via two public pull requests.14, 15 ASF opened an issue in its tracking system and committed the fix to the
+Log4j source code repository on December 5, 2021,16, 17 and tagged a release candidate (Log4j-2.15.0-rc1) on
+December 6, 2021. 18 ASF did not release a security advisory at that time.
+On December 9, 2021, the security engineer from Alibaba informed ASF via email that the vulnerability was
+being discussed on WeChat and provided a link to the relevant post.19, 20 The WeChat post, made by
+BoundaryX, a PRC-based cybersecurity company, included a redacted screenshot of a proof of concept
+exploit.21, 22 Upon receiving this information and becoming aware of subsequent public Twitter reports of
+ongoing exploitation, ASF escalated releasing an official fix, ahead of its original plans, and made an upgrade
+to version 2.15.0 available publicly on December 10, 2021.23, 24, 25
+ASF also made the assigned Common Vulnerabilities and Exposures (CVE) identifier (CVE-2021-44228)
+publicly visible on December 10, 2021.26, 27 That same day, the Cybersecurity and Infrastructure Security
+Agency (CISA) released a statement regarding the Log4j vulnerability.28 Analysts at the National Institute of
+Standards and Technology (NIST) National Vulnerability Database (NVD) assessed CVE-2021-44228 as a
+critical vulnerability with a Common Vulnerability Scoring System (CVSS) Base Score of 10.0, the highest score
+possible. This reflected the fact that exploitation of the flaw required low attack complexity, no privilege
+requirements, and no user interaction.29
+The PRC government informed the Cyber Safety Review Board (CSRB, or the Board) that Alibaba notified the
+Ministry of Industry and Information (MIIT) of the vulnerability on December 13, 2021.30
+Figure 1 illustrates key events from the discovery and disclosure of CVE-2021-4428 between November 24,
+2021 to December 13, 2021.
+
+Figure 1 – Log4j Vulnerability Disclosure Timeline
+Following the public disclosure of CVE-2021-44228, and widespread industry coverage, researchers
+discovered and reported additional vulnerabilities in Log4j to ASF. Following its standard processes, ASF
+triaged these reports, assigned CVE identifiers, and provided software upgrades to the community:
+• CVE-2021-4504631 – a remote code execution vulnerability (December 14, 2021) fixed in version
+2.16.0;32
+• CVE-2021-410433 – a remote code execution vulnerability affecting Log4j 1.2 (December 14, 2021)
+that could be addressed by upgrading to Log4j 2;
+• CVE-2021-4510534 – a denial-of-service (DoS) vulnerability (December 18, 2021) fixed in version
+2.17.0;35 and
+• CVE-2021-4483236 – a vulnerability that allows an attacker to modify the logging configuration file to
+execute remote code (December 28, 2021) fixed in version 2.17.1.37
+1.3 EXPLOITATION
+A technology services company observed the earliest known exploitation of the Log4j vulnerability over two
+days beginning on December 1, 2021. This company assessed the activity was consistent with the testing of
+the Alibaba security engineer's initial proof-of-concept payload.38, 39 In the course of our review and after
+examining classified and unclassified government information and industry data, the Board did not discover
+any additional evidence confirming further use of Log4j exploit code in the wild, including use by threat actors
+from the PRC, Iran, North Korea, and Russia, prior to the December 9, 2021 disclosure of the vulnerability.40
+Numerous sources observed attempts to exploit Log4j after disclosure of the vulnerability on December 9,
+2021. Security researchers and security teams also generated a large volume of vulnerability scanning activity
+that was difficult to distinguish from malicious activity.41 Five days following the flaw’s disclosure, Cloudflare
+observed 400 exploitation attempts per second,42 totaling millions of scanning attempts to identify vulnerable
+systems.43 This volume reflects SANS Institute’s (SANS) observations that exploiting the flaw “is actually
+unbelievably simple—which makes it very, very scary at the same time.”44
+Some additional industry observations:
+• Akamai assessed that approximately 57% of observed exploitation activity within the first week of
+public disclosure originated from known malicious actors;45
+• a technology services company observed a spike in scanning for the vulnerability less than two hours
+after publication of the vulnerability;46
+• vendors like one cybersecurity technology services company observed the use of botnets to automate
+the reconnaissance process to quickly identify vulnerable targets;47
+• a cybersecurity technology services company investigated multiple ransomware incidents that
+leveraged the Log4j vulnerability from January 2022 through March 2022;48
+• Check Point researchers observed nation-state threat actors exploiting the Log4j vulnerability;49
+• Cisco Talos observed the Internet-of-Things botnet known as Mirai exploiting Log4j;50
+• a cybersecurity technology services company attributed a high volume of initial exploitation attempts
+to known cybersecurity vendors and researchers;51
+• Mandiant reported significant intrusion activity from several threat actors;52
+• a technology services company witnessed threat actors using cryptocurrency miners and multiple
+ransomware payloads;
+• Microsoft reported attackers attempting to leverage a previously unknown vulnerability in SolarWinds
+Serv-U to propagate Log4j attacks; 54 and
+• Sophos observed a wave of attacks against vulnerable VMware Horizon servers beginning January 19,
+2022.55
+Log4j exploitation occurred rapidly after publication of the vulnerability,56 so much so that exploitation in
+December alone earned the Log4j vulnerability a place on the Department of Homeland Security’s (DHS) CISA
+list of Top Routinely Exploited Vulnerabilities in 2021.57 Security researchers and vendors assess that
+exploitation will continue.58, 59, 60, 61, 62
+1.4 RESPONSE
+In response to the Log4j vulnerability, thousands of security professionals across the globe mobilized
+simultaneously to identify and mitigate hundreds of millions of potentially affected devices. One interview with
+the Board revealed that “no one in the industry was sleeping that weekend [following the vulnerability’s
+announcement]—they were trying to patch millions of servers.”63 In a December 13, 2021 teleconference with
+industry leaders, Director Jen Easterly noted, “[the vulnerability] is one of the most serious I’ve seen in my
+entire career, if not the most serious.”64 Industry experts and reporters echoed her sentiments.
+Communications and Public Guidance
+Immediately following the disclosure of the Log4j vulnerability, software developers and cybersecurity
+professionals globally used formal and informal communication channels to share mitigation tactics and
+provide guidance to the public.
+Many interviewed stakeholders indicated one of their earliest, if not their first, notifications of the vulnerability
+came from social media platforms, especially Twitter,65, 66, 67 where the broader security community shared
+vulnerability information and emerging indicators of compromise (IOC). Individual accounts also shared
+exploitation variants, obfuscation and defense evasion techniques, and other trends to enable responders to
+adjust defensive measures and deter potential attacks. Multiple interviewees told the Board that Twitter was a
+valuable resource for global events of this type.
+Stin
+Figure 2 – SANS Internet Storm Center (ISC) detailing the scale of Log4j exploit attempts on December 10, 2021
+U.S. Government Coordination
+All U.S. government agencies had a role in responding to Log4j: protecting their own networks; tracking
+potential malicious activity; or prompting key constituencies to act. However, the Board’s review largely
+focused on CISA and its role in protecting federal infrastructure, and the Office of the Federal Chief Information
+Security Officer.
+On December 10, 2021, one day after the public disclosure of the vulnerability, CISA issued a statement
+highlighting the ASF advisory and encouraged users and administrators to upgrade their systems or apply
+mitigations immediately.70 On December 17, CISA released Emergency Directive (ED) 22-02, which detailed
+mitigation measures for vulnerable products and patch prioritization recommendations, and required civilian
+Executive Branch agencies to address Log4j vulnerabilities within two weeks.71 In the days following the
+disclosure, CISA focused on facilitating collaboration with trusted partners, such as its efforts to understand
+mitigations for Industrial Control Systems (ICS) vendors with Carnegie Mellon’s Vulnerability Information and
+Coordination Environment (VINCE) software vulnerability team.72
+CISA also tapped into the newly established Joint Cyber Defense Collaborative (JCDC),73 which facilitated the
+collection, organization, and consolidation of data to determine the impact of the vulnerability and support the
+development of comprehensive remediation. In interviews with the Board, a number of stakeholders reported
+that the JCDC was an important catalyst for information sharing to address the threat.74, 75, 76 CISA received 17
+threat analyses from JCDC members that it would not have otherwise seen until days later, when those
+members eventually published their products.77 Notably, some material that JCDC members provided to CISA
+was not publicly released, but CISA was still able to access and use this information to better inform its
+products, guidance, and analysis.78
+To coordinate and communicate with external partners in real time during the Log4j event, CISA established
+Slack channels. One JCDC member reported to the Board that these Slack channels were beneficial for bi-
+directional information sharing between industry and government stakeholders, especially early in the
+vulnerability response.79 CISA set up several channels that varied in purpose and participants; one channel
+was for sharing threat information (e.g., tactics, techniques, and procedures (TTPs) and IOCs) and analysis
+among JCDC’s Alliance partners and other key technology companies. CISA also created a channel for related
+collaboration across JCDC’s U.S. government partners.80
+Before issuing ED 22-02, CISA launched two community resources on December 13, 2021:
+• a centralized knowledge management website of high-level, executive-level, and technical products,
+including pre-vetted information from trusted partners;81, 82 and
+• a GitHub repository83 with an extensive list of vulnerable products and components to help responders
+understand where the Log4j software resided within their environments, along with associated
+remediation recommendations.84
+CISA noted that it shared guidance from third parties that it vetted and identified as credible due to their
+reputation and prior work. Due to the urgency of the situation, CISA shared other unvalidated third-party
+resources and encouraged readers to independently verify the information.85 CISA worked directly with
+researchers and vendors to identify and catalog vulnerable products within a well-received public GitHub
+repository.86, 87, 88
+CISA’s response provided defenders with specific and comprehensive guidance for vulnerability management,
+including patch prioritization. Stakeholders provided positive feedback to the Board about the utility of CISA’s
+guidance, saying it provided a trusted source for direction and specific resources.89 However, some
+stakeholders noted that unvalidated social media sources occasionally published information before credible
+government and industry sources issued guidance.
+Other U.S. government agencies also created alerts and provided guidance for Log4j mitigation. On December
+15, 2021, the Federal Bureau of Investigation (FBI) published a message encouraging victims to report any
+malicious activity or victim compromise.90 CISA, the FBI, the National Security Agency (NSA), and international
+cybersecurity counterparts from Australia, Canada, New Zealand, and the United Kingdom (U.K.) published a
+joint advisory with technical details, mitigations, and resources for organizations using Log4j products.91 The
+Federal Trade Commission (FTC) amplified CISA’s guidance through a blog post, declaring that “[t]he FTC
+intends to use its full legal authority to pursue companies that fail to take reasonable steps to protect
+consumer data from exposure as a result of Log4j, or similar known vulnerabilities in the future.”92 The
+Department of Defense (DoD) also published a memorandum on January 24, 2022 that cited two fundamental
+concerns surrounding the use of open source software: supply chain risk management for externally
+maintained code in critical DoD systems as potential paths for introduction of malicious code; and the
+disclosure of key innovations via imprudent sharing of code developed for DoD systems for adversary benefit.93
+See Appendix D for communications from U.S. and foreign governments, the private sector, and the media.
+Case Studies: Other Government Responses to Log4j
+The Board engaged representatives from government cybersecurity agencies in Israel and the United
+Kingdom to share notable features of their responses to the Log4j vulnerability
+Israel United Kingdom
+The Israel National Cyber Directorate (INCD) After the critical Microsoft Exchange vulnerabilities in
+leveraged internal and perimeter vulnerability 2021, the U.K.’s National Cyber Security Centre
+scanners alongside a comprehensive configuration (NCSC-UK) integrated new processes to improve
+management database (CMDB) and internet service future vulnerability management guidance, which it
+provider (ISP) data to filter, aggregate, correlate, and leveraged throughout the Log4j event.
+enrich data for providing information about the
+The NCSC-UK used a newly implemented
+vulnerability.
+vulnerability scoring and categorization framework
+While INCD observed approximately 3 million (developed to complement its existing incident
+attempts to exploit the Log4j vulnerability, INCD categorization matrix) to determine the need for
+representatives attributed their ability to quickly response and coordination across government and
+remediate successful exploitation incidents to law enforcement resources. In addition to providing
+having the right people in the right place with the responders with a kit that contained mitigation and
+right resources.94 In particular, INCD noted that it remediation guidance and critical vulnerability
+closed the vulnerability relatively quickly because it advice for boards, the NCSC-UK also hosted an “ask
+aligned dedicated resources to its critical me anything” session to facilitate real-time response
+infrastructure organizations. endeavors.95
+Organizational Responses
+Generally, organizations that responded most effectively to the Log4j event understood their systems’ use of
+Log4j and had technical resources and mature processes to manage assets,96 absorb new information and
+assess the potential risk, and mobilize the entire organization and key partners to action.97 In many cases,
+however, a lack of awareness and understanding of Log4j, insufficient resources, or lack of vendor upgrades
+hampered organizational response to the vulnerability.98
+Many security engineers reported addressing the complexity or impossibility of upgrading Log4j immediately by
+using a wide variety of mitigation actions,99, 100 especially when patches for third-party products were
+unavailable. These actions included:
+• egress filtering of network traffic from systems utilizing vulnerable Log4j code;
+• deleting the JndiLookup.class file containing the vulnerable code;
+• patching or disabling sections of vulnerable code, including modifying running systems by applying hot
+patches;
+• blocking possible attack traffic by configuring Web Application Firewalls (WAF) to limit exploit queries;
+and
+• physically removing affected assets from the network until they could be upgraded.
+SECTION 2 – FINDINGS AND CONCLUSIONS
+The Board’s findings and conclusions are the result of its independent review. These findings and conclusions
+are based on information gleaned from literature searches, interviews, requests for information, and analysis
+of public, private, and government-source information. The Board relied upon the voluntary participation of
+numerous organizations affected by the Log4j vulnerability.
+The findings and conclusions in this section are not intended to assign blame or fault to any individual or
+collective parties, but rather to highlight opportunities where the community can understand lessons and apply
+safety improvements for the future.
+2.1 SUMMARY OF FINDINGS
+The Log4j event illustrates how counterintuitive cybersecurity defense can be, for both individual enterprises
+and for the ecosystem as a whole. Many things went “right”: ASF had a well-established software development
+lifecycle with clear roles for vetting, testing, and approval of new code; security researchers followed generally
+accepted steps of coordinated disclosure; ASF quickly recognized the criticality of the problem and made
+upgrades available; vendors and governments rapidly produced guidance, tools, and threat information; and
+the whole ecosystem rallied behind a collective sense of urgency.101, 102 However, organizations still struggled
+to respond to the event, and in fact, the Board found that many organizations have still not fully patched
+vulnerable instances of Log4j.
+The Board found that software developers, maintainers, vulnerability response teams, and the U.S. government
+commonly made risk trade-offs about software use and integration. For example, organizations made the
+decision to use Log4j, rather than develop a logging framework from scratch. Similarly, organizations make
+decisions to use software from an established organization (e.g., ASF) based on its mature and vetted
+processes. The Log4j event highlighted fundamental adoption gaps in vulnerability response practices and
+overall cybersecurity hygiene. These gaps highlighted challenges in raising awareness within organizations;
+coordinating trusted and authoritative sources of information; mitigating at scale; measuring the enormity of
+the risk; and synchronizing the understanding of threats and corresponding defensive action.103
+The fundamentals of Enterprise Risk Management, described in this section, are foundational tools that enable
+organizations to locate affected software assets, rapidly identify risks to business operations, upgrade
+vulnerable software, and monitor for malicious activity.104
+101 Federal Chief Information Security Officer (CISO). Subcommittee Meeting.
+102 Recent coordination efforts between researchers, vendors, and the federal government demonstrate enhanced agility and
+alignment across industry verticals. This observation poses an opportunity for experts to leverage their skill set (e.g., software
+development, threat intelligence, and similar skills) to identify risks and improve communal trust across sectors via responsible
+disclosure. As observed through both the Log4j and SolarWinds events, this also enables authoritative sources to promote
+awareness and facilitate vulnerability management efforts to address emergent risks. Source: Mandia, Kevin, FireEye, “FireEye
+Shares Details of Recent Cyber Attack, Actions to Protect Community,” December 8, 2020,
+https://www.fireeye.com/blog/products-and-services/2020/12/fireeye-shares-details-of-recent-cyber-attack-actions-to-protect-
+community.html; Cybersecurity & Infrastructure Security Agency (CISA), “Emergency Directive 21-01 – Mitigate SolarWinds Orion
+Code Compromise, https://www.cisa.gov/emergency-directive-21-01
+2.2 CONTRIBUTING FACTORS OF THE VULNERABILITY
+At a technical level, the introduction of the JNDI lookup plugin support “which could be exploited by an attacker
+due to the way Log4j interacts with JNDI without properly validating all requests”105 as outlined in Section 1.1
+–Discovery and Disclosure led to the Log4j vulnerability. However, a number of factors amplified the scale,
+complexity, and risk level of the vulnerability:
+• Log4j is routinely embedded in other software components, often unknown at later levels of
+integration or system operation, making it a difficult vulnerability to identify using common scanning
+approaches;
+• the Log4j framework is incorporated into thousands of software components globally,106 and many of
+the nation’s critical infrastructure and government systems rely on it;
+• consistent with industry convention, the Log4j and ASF teams do not manage or know who uses the
+software they produce, or how it is eventually used;
+• the Log4j vulnerability is easy for attackers to exploit and affords a high degree of system control to an
+attacker once exploited.107, 108
+The Board also found specific challenges associated with maintaining open source projects like Log4j, which
+generally rely on volunteer teams and do not necessarily have dedicated security resources throughout the
+Software Development Lifecycle.109 Open source projects generally do not have dedicated coordinated
+vulnerability disclosure and response teams that investigate root causes of reported vulnerabilities and work to
+bring them to resolution. Open source projects like Log4j often also develop code “in the open,” where security
+changes are publicly visible as they are being developed. This suggests that advisories and community
+response may need to be activated concurrently with any fixes to narrow the window for malicious exploitation
+prior to the official patch being available for defenders.110 See Appendix E for the Board’s observations of the
+open source software ecosystem during the Log4j event.
+These factors created a perilous combination: an enormous attack surface vulnerable to exploitation;
+vulnerability response teams that often could not identify where the vulnerable code could be found in their
+systems; and a vulnerability that is easily exploited to grant significant unauthorized access to systems,
+including sensitive systems used to support critical infrastructure and federal government operations.
+The Board also examined whether the Log4j vulnerability could have been prevented or caught earlier,
+particularly whether the introduction of the JNDI lookup plugin support in 2013 would have resulted in
+unintended exploitability of the added functionality. The Board concluded that a focused review, performed by
+someone with sufficient experience with the security implications of adding the JNDI support, could have
+identified the unintended functionality (i.e., the vulnerability). Unfortunately, the resources to perform such a
+review were not available to the volunteer developers who led this open-source project in 2013.111, 112
+105 Kerner, Sean Michael, TechTarget, “Log4j explained: Everything you need to know,” January 27, 2022,
+https://www.techtarget.com/whatis/feature/Log4j-explained-Everything-you-need-to-know
+106 The Log4j and SolarWinds events both revealed the far-reaching attack surface and potential damage that can result from a
+problem found within a widely distributed technology. Source: Federal Agency. Response to Board request for information.
+107 Chief executive; Cybersecurity technology services company. Subcommittee Meeting.
+108 Similar to consequences of the Log4j 2 vulnerability, the SolarWinds supply chain compromise enabled threat actors to gain
+initial access to several target environments, move throughout their systems, and deploy multi-staged attacks. Source: Herr, Trey
+et al., The Atlantic Council, “Broken Trust: Lessons from Sunburst,” March 2021, https://www.atlanticcouncil.org/wp-
+content/uploads/2021/03/BROKEN-TRUST.pdf
+The ASF developers conveyed to the Board that automated security testing would not have caught this specific
+vulnerability, though they noted that an extensive code audit might have identified the issue.113 The Log4j
+developers might not have introduced the vulnerability in 2013 if they had had access at the time to training in
+secure coding practices consistent with established secure development lifecycle tools and techniques.114 A
+technology services company seconded that position and suggested that security-oriented design reviews,
+threat models, and security audits may have prevented events such as Log4j.115
+Ultimately, even if the Log4j developers or others had identified the flaw in published versions of Log4j prior to
+November 2021, the community would still have had to respond as outlined in this report. The Board also
+found that the only way to reduce the likelihood of risk to the ecosystem caused by vulnerabilities in Log4j, and
+other widely used open source software, is to ensure that code is developed pursuant to industry-recognized
+secure coding practices and an attendant audit by security experts. The open source community, which is
+volunteer-based, would need sustained financial support and expertise to make this possible.
+2.3 ENTERPRISE RISK MANAGEMENT
+After disclosure of the Log4j vulnerability, organizations had to rapidly assess and manage their potential risk,
+at both a technical and business level.116 Generally, the Board found that organizations that responded most
+effectively to the Log4j event already had technical resources and mature processes in place to identify
+vulnerable assets, absorb new information, assess potential risk, and mobilize their entire organization and
+key partners to action. See Appendix F for a summary of the Board’s insights on effective practices that
+organizations leveraged when managing the Log4j event.
+Most modern security frameworks call out these activities, such as:
+• application of technologies and processes that enable the management of and visibility into hardware,
+software, and systems;
+• activation of existing incident crisis, or vulnerability management plans, which clearly define
+responsibilities and for which staff has been trained;
+• ongoing risk management processes that identify business/mission-critical systems, data application,
+outsourced risk management partners, and establish traceable mitigation strategies; and
+• plans for internal and external communication methods to inform leadership, internal teams, and
+customers.
+More security-mature organizations also mobilized existing and ad hoc teams to:
+• bring together groups such as security operations, information technology (IT) operations, penetration
+testing, vulnerability management, threat intelligence, and product security to identify enterprise weak
+spots, compare them to external attacker trends, and mobilize defenses; and
+• create coordination teams to oversee Log4j-related activities across the organization and to
+participate in active outreach to third-party service providers, the general public, and government
+entities.117, 118
+Many organizations made use of mitigations described in Section 1.4 – Response, subsection Organizational
+Responses (such as turning off affected systems or using WAFs). While these were helpful in the short term,
+they did not correct the underlying issues, or were superseded by later guidance that required additional
+resources. Some mitigations were more drastic (including removing systems from production) and had direct
+impact on mission. However, as ASF released various upgrades for Log4j, organizations focused on upgrading
+their systems, due to the nature of the vulnerability.119
+Many organizations depended on the responsiveness of their vendors to understand and remediate the
+vulnerability.120 Some organizations still harbor concerns, despite vendors reporting having implemented
+updates, due to the interdependencies between different applications and components.121
+Industry experts have called for increased automation to help organizations identify vulnerable software and
+execute Enterprise Risk Management at scale, but they also recognize that cataloging software components at
+this depth can be prohibitively labor intensive. Solutions to enable these necessary capabilities do not exist.
+The Role of Software Bills of Materials
+Software Bills of Materials (SBOMs) provide a list of components included in software, and theoretically
+should enable organizations to identify vulnerable software components in their environments.122 The Board
+spoke with representative groups for organizations currently using SBOMs in their environments, and none
+reported having leveraged them to identify vulnerable deployments of Log4j.
+As designed today, SBOMs are limited, for example by variances in field descriptions and a lack of version
+information about catalogued components, and lack of automation on the consumption end due to these
+variances. Addressing SBOM standardization gaps would support a faster software supply chain vulnerability
+response.
+2.4 ECOSYSTEM RISK MANAGEMENT
+During the Log4j event, risk management activities across the ecosystem impacted individual organizations’
+response efforts. For example, all parties benefited when a trusted entity, CISA, raised an alarm and provided
+mitigations, such as its joint Log4j cybersecurity advisory123 and ED 22-02.124 On the other hand, the
+ecosystem also contributed to “noise” and uncertainty in the early days of the vulnerability disclosure, leading
+to an overwhelming amount of information.
+Based on the severity of the Log4j vulnerability, all enterprises needed to rapidly assess the potential risk to
+their business operations and develop and execute a plan of action. The U.S. government also needed to
+understand and manage the overall risk to the total U.S. cyber ecosystem. This required integration of
+information across the full range of threats, vulnerabilities, and potential consequences. It also required the
+ability to define the risk and spur action across the United States, especially within critical infrastructure and
+government, including national security functions.
+Even before the Log4j vulnerability disclosures, CISA had taken important steps to drive network defender
+attention toward broader risk management of known security vulnerabilities. On November 3, 2021, CISA
+issued Binding Operational Directive (BOD) 22-01 – Reducing the Significant Risk of Known Exploited
+Vulnerabilities (KEVs).125 Based on persistent cyber campaigns threatening the public and private sectors, this
+publication established a catalog of KEVs representing significant risk to the federal enterprise.126 The directive
+required federal agencies to take three actions:
+• review and update agency internal vulnerability management procedures;
+• remediate each vulnerability; and
+• report on the status of vulnerabilities listed in the catalog.
+CISA updated the catalog on December 10, 2021 to include Log4j (CVE-2021-44228). The catalog established
+a clear U.S. government-wide policy and an expectation of action and reporting. It also brought specific
+operational priority to ongoing federal activities to complement technology improvement and compliance
+programs.
+Other U.S. federal agencies chose to amplify or highlight CISA's resources and guidance. For example, the FTC
+issued a blog post citing CISA’s guidance and resources for managing the risk around Log4j. This blog post
+outlined the FTC’s intent to use its full legal authority to pursue companies that failed to take reasonable steps
+to protect consumer data due to exposure resulting from Log4j. Anecdotal reports suggest this blog drove
+significant mitigation activity among organizations concerned with the FTC’s potential enforcement actions.127
+While this communication was not coordinated directly with CISA, it highlights how regulatory agencies and
+CISA can benefit from each others’ expertise and authorities. CISA is the authoritative federal voice on how to
+reduce risk from a severe vulnerability like Log4j. Regulators (whether federal or state) do not generally have
+CISA’s level of cybersecurity expertise, but can use their significant enforcement authorities to drive
+compliance with CISA’s guidance among their regulated communities. This results in improved uptake of
+CISA’s recommendations, and thus improved overall national cybersecurity.
+Ecosystem Risks Inherent in the PRC’s Regulatory Regime and Sanctions Against Alibaba
+The global community benefited from the engineer at Alibaba following recognized practices for coordinated
+vulnerability disclosure.
+The PRC government informed the Board that Alibaba reported the vulnerability to the PRC’s Ministry of
+Industry and Information Technology on December 13, 2021.128, 129 This report to MIIT appears to be 19 days
+after the Alibaba security engineer private disclosure of the vulnerability to ASF, and 17 days after a deadline
+stipulated in Article 7.2 of MIIT’s Regulations on the Management of Security Vulnerabilities of Network
+Products, which would have obligated Alibaba to report vulnerabilities in its own products (i.e., its own products
+that incorporate Log4j).130 Starting December 22, 2021, several Western and Chinese-language media
+sources reported that MIIT suspended Alibaba from a cybersecurity threat information sharing platform
+partnership for failing to report the Log4j vulnerability to MIIT in a timely manner.131, 132, 133, 134 Because the
+PRC government has not publicly provided a detailed explanation of any sanctions, and MIIT’s response to the
+Board’s official request for information did not address this specific matter, the Board was unable to verify the
+rationale for the sanctions.
+Independent of a possible sanction against Alibaba, the Board noted troubling elements of MIIT’s regulations
+governing disclosure of security vulnerabilities. The requirement for network product providers to report
+vulnerabilities in their products to MIIT within two days of discovery could give the PRC government early
+knowledge of vulnerabilities before vendor fixes are made available to the community. The Board is concerned
+this will afford the PRC government a window in which to exploit vulnerabilities before network defenders can
+patch them. This is a disturbing prospect given the PRC government’s known track record of intellectual
+property theft,135 intelligence collection,136 surveillance of human rights activists and dissidents,137 and
+military cyber operations.138
+128 PRC government. Board Meeting. July 7, 2022. In response to a written Board request about the Log4j event and the PRC
+government’s involvement in it, an attaché from the PRC embassy in Washington, D.C. offered the following verbal statement on
+behalf of the PRC Ministry of Industry and Information Technology, but would not answer follow up questions:
+Cybersecurity is a common challenge faced by all countries and maintaining cybersecurity requires the joint
+participation of the public and private sectors of all countries. On December 13, 2021 Alibaba called and
+reported to the Ministry of Industry and Information Technology of the PRC (MIIT) that it had discovered a security
+vulnerability in the Apache Log4j 2 component and informed the Apache Software Foundation of the United
+States. Based on the vulnerability, patches released by Apache, MIIT issued network and cybersecurity risk alerts
+to the society. Alibaba took its own technical capability to take the lead in discovering the vulnerability and
+reporting it to the relevant software providers is worthy of recognition. The Chinese government encourages and
+supports capable enterprises to promptly notify network providers to patch vulnerabilities and enhance
+productive security in accordance with the open source community vulnerability information disclosure rules
+after discovering vulnerabilities. We also encourage enterprises to share cyber threat information and improve
+the level of provision and response to cyber threats of all parties so as to build a more secure and [inaudible]
+open cyberspace. Relevant information can be found on the website, including that of the MIIT.
+Furthermore, Article 9.6 of the MIIT regulations includes a provision prohibiting organizations or individuals
+from publicly disclosing vulnerabilities during “major national events” without the consent of the Ministry of
+Public Security (MPS). This regulation does not appear to prevent disclosure of a vulnerability to affected
+parties responsible for creating a fix, but depending on the domicile of that party, it may create circumstances
+where the PRC government can prohibit a public disclosure under vague, lightly-defined conditions. This could
+potentially prolong the period in which the PRC government can act on the vulnerability for its own purposes
+before network defenders can be made aware of a risk.
+In the Board’s judgment, Alibaba’s researcher acted responsibly by following a sound coordinated disclosure
+process with ASF, and the Board is concerned about alleged punitive government sanctions creating a chilling
+effect on future coordinated disclosure.
+Information Overload
+Numerous interviewees highlighted the overall unity of effort and communications across the broader cyber
+community, noting a sense of common struggle against an unprecedented and dangerous new vulnerability.
+They also observed that the flood of well-intentioned information soon became overwhelming, rather than
+empowering, for impacted organizations. This was especially true during the initial response, due to the
+amount of information coming from security researchers on Twitter,139, 140 notifications from ASF, vendor
+security alerts, press coverage, and notifications from government agencies, such as CISA. In a sea of alerts
+about potential mitigations and defensive measures, network defenders sought authoritative guidance that
+they could confidently take to their teams and execute against.141 Appendix D provides more insight into the
+amount of information that inundated responders.
+The impact of this information overload is apparent in the sequence of multiple releases of Log4j upgrades as
+researchers discovered additional security flaws (see Section 1.2 – Discovery and Disclosure). Due to
+continuous releases of upgrades, organizations had to consume new information in real time in order to
+understand to which version they should upgrade relative to their overall risk posture. Some turned to CVSS
+scores for insights into their risk exposure. However, CVSS scores do not provide insight into the impact of the
+vulnerability in the context of an organization’s business assets, exposure, or operations, or the specific intent
+of attackers exploiting the vulnerability. As impacted organizations attempted to prioritize these risks and
+determine remediations, they were forced to sort through bulletins, advisories, and guidance from vendors,
+media, partners, and government sources.
+Organizations also faced information overload from their own security monitoring programs. After disclosure of
+the vulnerability, organizations reported observing widespread vulnerability scanning, and many were unable to
+distinguish attackers from bona fide researchers. This meant organizations found it challenging to understand
+whether or not malicious threat actors were attacking their systems. Some organizations offered resources to
+help focus responders, for example GreyNoise has a free community portal to help identify known malicious
+and known benign (including research) scans.142
+2.5 IMPACT ON BUSINESS OPERATIONS
+Given the scale of use of Log4j, the ease of exploiting the vulnerable feature, and widespread reporting on the
+vulnerability, the Board expected to find during its review that the vulnerability had a significant impact on the
+safety of the digital ecosystem. However, at the time the Board concluded its review, despite industry
+observations of widespread exploitation attempts (see Section 1.3 – Exploitation), the Board did not learn of
+any significant attacks impacting organizations, including attacks on critical infrastructure.143
+Several factors provide context for this outcome. First, while cybersecurity vendors could provide anecdotal
+evidence of exploitation, the Board found it challenging to identify an authoritative source from which to
+understand exploitation trends across geographies, industries, or ecosystems. Many organizations did not
+collect or report information on specific Log4j exploitation. The use of scanning techniques that limited the
+ability to differentiate between benign and malicious activity during the Log4j event further complicated this
+picture. Second, information about which organizations were impacted, and specific threat activity (for example
+advanced persistent threats (APTs)), is generally limited to information that victims voluntarily report. No
+central repository of information about Log4j-related breaches exists, and mandatory reporting requirements
+that would make one possible are limited or not yet in legal effect.
+However, many organizations did report to the Board that they saw a negative impact to their business
+operations due to the complex nature of Log4j response efforts, which required them to reallocate significant
+resources in a short period of time. For example, one federal cabinet department reported dedicating 33,000
+hours to Log4j vulnerability response.144 These responses, often sustained over many weeks and months,
+resulted in high costs and delayed other mission-critical work, including responding to other vulnerabilities.
+In the long term, the collective need for crisis-driven risk management distracts resources and management
+attention from foundational investments that would support rapid response in future incidents. In the case of
+the Log4j event, for example, the forced speed of response and challenges of managing risk induced
+professional “burnout” among defenders that could have a long-term impact on cybersecurity talent
+attrition.145 Cybersecurity professionals cannot collectively sustain a model where most of their resources are
+spent reacting to emerging problems like a steady stream of vulnerabilities.
+At this time, Log4j has become an “endemic vulnerability” that will be exploited for years to come.146, 147 The
+impact to organizations over the long term will be difficult to assess without better tools for discerning real
+exploitation and centralized reporting of successful compromises.148
+SECTION 3 – RECOMMENDATIONS
+The recommendations outlined in this section respond to the Board’s mandate to identify improvements for
+cybersecurity and make independent, strategic, and actionable recommendations to the Secretary of
+Homeland Security, while recognizing that the Log4j event is ongoing and the vulnerability continues to
+potentially expose organizations. The Board notes that the community should implement improvements to
+forestall the next Log4j-type event while also undertaking actions to intervene and remediate the present risks.
+Therefore, our recommendations blend the need for continued vigilance with a drive toward medium-term
+adoption of existing security hygiene best practices and investments to improve cybersecurity processes,
+frameworks, and policies. Additionally, new investment and novel approaches are necessary to bring about
+transformations that scale to protect the entire the ecosystem at an optimal level of capability and maturity.
+The Log4j event occurred amid a wider conversation to improve the nation’s cybersecurity posture, where
+private and public sector partnerships are developing promising new policy and industry-led actions such as
+the shift to Zero Trust architectures, new strategies for software assurance, and new requirements for
+reporting incidents. Many of these efforts were still nascent at the time of this report’s production, but merit
+special acknowledgement in their respective contexts as they relate to the Log4j event. Where applicable, we
+have recognized where those efforts are related to the Board’s recommendations.
+The Board’s recommendations are organized under four themes:
+1. Address Continued Risks of Log4j: promote continued vigilance in addressing Log4j vulnerabilities for
+the long term;
+2. Drive Existing Best Practices for Security Hygiene: adopt industry-accepted practices and standards for
+vulnerability management and security hygiene;
+3. Build a Better Software Ecosystem: drive a transformation in the software ecosystem to move to a
+proactive model of vulnerability management; and
+4. Investments in the Future: research possible cultural and technology shifts necessary to solve for the
+nation’s digital security.
+ADDRESS CONTINUED RISKS OF LOG4J
+The Board predicts that, given the ubiquity of Log4j, vulnerable versions will remain in systems for the next
+decade, and we will see exploitation evolve to effectively take advantage of the weaknesses.
+1. Organizations should be prepared to address Log4j vulnerabilities for years to come.
+All organizations should have capabilities to discover and upgrade vulnerable software and the ability to
+sustain execution of these vulnerability management capabilities for the long term.
+• All organizations should continue to proactively monitor for and upgrade vulnerable versions of Log4j.
+• All organizations should prioritize applying software upgrades (using mitigations sparingly) as
+described in Section 2.4 – Ecosystem Risk Management, to avoid errant conditions that would create
+exposure over the long term (for example, configuration mistakes that expose vulnerable attack
+surfaces).
+• All organizations should use robust business processes that prevent the reintroduction of vulnerable
+versions of Log4j (regressions).
+• All organizations should take a risk-based approach to remediating Log4j so they can address other
+high-severity vulnerabilities.
+2. Organizations should continue to report (and escalate) observations of Log4j exploitation.
+Maintaining collective defense against the ongoing Log4j exploitation requires all stakeholders to share
+insights about activity they are observing.
+• Federal agency Chief Information Security Officers (CISOs) should report instances of Log4j
+exploitation to CISA even if they do not meet the threshold for a significant event.
+• All organizations are encouraged to report significant incidents resulting from Log4j exploitation to the
+FBI or CISA.
+• CISA should expedite, to the greatest extent possible, its implementation of the landmark cyber
+incident reporting requirements Congress enacted in March 2022 through the Cyber Incident
+Reporting for Critical Infrastructure Act of 2022 (CIRCIA).149 The new mandate requires CISA to
+conduct initial rulemaking activities within 24 months, but CISA should conduct its implementation as
+quickly as possible within that timeframe.
+• The Cyber Incident Reporting Council150 should prioritize recommendations that will ensure that
+significant exploitations of vulnerabilities like Log4j are promptly reported to CISA and other
+appropriate agencies.
+The Cyber Incident Reporting for Critical Infrastructure Act of 2022 contains elements designed to increase
+observation of vulnerability exploitation. For example, CIRCIA:
+• establishes a requirement for critical infrastructure entities to report cyber incidents within 72
+hours of discovery;
+• protects proprietary information from misuse;
+• shields reporting entities from liability as a result of the reporting; and
+• creates the Cyber Incident Reporting Council, chaired by the Department of Homeland Security, to
+review and recommend actions to harmonize cyber incident reporting requirements across federal
+regulatory, law enforcement, and sector risk management agencies.
+3. CISA should expand its capability to develop, coordinate, and publish authoritative cyber risk information.
+Many organizations faced challenges in identifying authoritative sources of information to effectively respond
+to the Log4j vulnerability. CISA, as the operational lead for federal cybersecurity and national coordinator for
+critical infrastructure security and resilience, is the natural federal lead to collect and disseminate authoritative
+information before, during, and after a cyber event.
+• CISA should continue to evaluate Log4j exploitation risk and enhance the risk management
+capabilities of the broader community through interagency coordination. To achieve this objective:
+the Intelligence Community should provide to CISA ongoing assessments of the capability
+o
+and intent of threat actors to exploit the Log4j vulnerability;
+federal CISOs and the JCDC should provide to CISA those vulnerabilities that, if exploited,
+o
+would yield significant impact to critical infrastructure, national security, or the economy;
+and
+CISA should solicit, analyze, and integrate non-federal and federal data, including threat,
+o
+consequence, and vulnerability data, to yield actionable information to enhance Log4j
+risk management.
+• CISA should enhance communication by designating resources to widely distribute actionable
+information to stakeholders and continue to invest in trusted relationships to prepare for the next
+incident. CISA should continue to:
+validate information sources and coordinate authoritative messaging during ongoing
+o
+significant cybersecurity events;
+leverage existing trust communities such as Information Sharing and Analysis
+o
+Organizations (ISAOs) and Information Sharing and Analysis Centers (ISACs), and public-
+private sector partnerships; and
+methodically expand industry partner relationships with organizations that can provide
+o
+telemetry data, exploitation trends, and insight into ongoing threat actor activity to obtain
+a more informed understanding surrounding cybersecurity incidents, promote optimized
+information sharing mechanisms, and enable reliable and constructive response efforts
+across varying event types.
+• CISA should request that members of the JCDC periodically measure Log4j exploitation and determine
+whether and where (for example, by industry, sector, or platform) alerts and advisories could help
+reinforce the need for patching and mitigation.
+• CISA, in coordination with the FBI and the Intelligence Community, should develop a joint cyber threat
+model for projecting advanced adversaries’ long-term exploitation capabilities based on their historical
+TTPs.
+4. Federal and state regulators should drive implementation of CISA guidance through their own regulatory
+authorities.
+CISA operates on a voluntary cooperation model with industry, but regulators have the legal authorities to drive
+better cybersecurity by compelling or encouraging their regulated communities to comply with CISA’s guidance.
+The FTC showed leadership in this respect by pointing its stakeholders to CISA’s Log4j guidance, following
+CISA’s engagement with the FTC to educate the agency about the vulnerability and effective mitigations.
+• Federal and state regulators across industry sectors should identify opportunities to direct or
+encourage their regulated communities to implement CISA guidance, advisories, and best practices.
+DHS, and specifically CISA, should similarly encourage federal and state regulators to become familiar
+with CISA’s products and offer those regulators support in amplifying them.
+DRIVE EXISTING BEST PRACTICES FOR SECURITY HYGIENE
+Organizations should adopt current industry-accepted practices and standards for vulnerability management
+and security hygiene.
+5. Organizations should invest in capabilities to identify vulnerable systems.
+Organizations should invest in capabilities that allow them to identify vulnerable systems and applications in
+their environments in a timely manner.
+• All organizations, including U.S. government agencies, should maintain an accurate asset and
+application inventory (as discussed in Recommendation 6), using automation and tooling as
+necessary, as outlined in International Organization for Standardization (ISO) 55000:2014151 and
+NIST Special Publication 1800-5.152
+• Organizations should deploy vulnerability scanning technologies that will identify vulnerable software
+in line with recommendations from ISO 27001:2018.153
+• As vulnerability identification capabilities mature (see Recommendation 12 on SBOMs), organizations
+should be prepared to champion and adopt new technologies to enhance the speed of vulnerability
+mitigation.
+The Open Source Software Security Mobilization Plan,154 led by the Linux Foundation and Open Source
+Security Foundation (OpenSSF), calls for industry action to develop software component frameworks
+(including SBOMs) to expedite discovery of and response to future vulnerabilities like Log4j.
+6. Develop the capacity to maintain an accurate IT asset and application inventory.
+Maintaining an accurate technology asset and application inventory is an accepted industry-wide best practice
+of cyber hygiene, and can help organizations more easily identify affected assets and applications in
+responding to an incident. All organizations should maintain an accurate IT asset and application inventory,
+and the Board recommends that within the U.S. government:
+• the Office of Management and Budget (OMB) should take appropriate steps to ensure that federal
+agencies invest in automation and tooling to establish and maintain an accurate and robust
+technology asset and application inventory;
+• CISA should coordinate with federal agencies to map direct and indirect software dependencies
+across open and commercial software throughout the federal enterprise to improve detection and
+incident response when vulnerabilities are found in software dependencies; and
+• OMB, in coordination with the Office of the National Cyber Director (ONCD) and CISA, should, as the
+SBOM ecosystem matures, consider issuing guidance to agencies on effectively using these asset
+inventories and software metadata to improve detection and incident response during future
+vulnerability response activities.
+7. Organizations should have a documented vulnerability response program.
+Vulnerability response is the process of investigating a potential security incident or emerging cyber threat to
+take defensive or corrective action. It refers to remediating both publicly-known vulnerabilities as well as active
+attacks that are under private investigation. This process differs from vulnerability disclosure and handling
+processes in that it deals with vulnerabilities affecting the software that organization uses but for which it is
+not the code maintainer.
+• Organizations that consume software, including U.S. government agencies, should have a documented
+vulnerability response program as described in Cybersecurity Incident & Vulnerability Response
+Playbooks155 and ISO/IEC 27001:2018.156
+• Organizations should holistically assess, aggregate, classify, and prioritize high-risk vulnerabilities for
+software running on their systems.
+• Organizations should increase the maturity of their vulnerability response program, especially where
+they currently have limited capabilities, by setting benchmarks and measuring their efficacy over time.
+8. Organizations should have a documented vulnerability disclosure and handling process.
+Vulnerability disclosure and handling are the processes that define how organizations should receive and
+process vulnerability reports in products or systems for which they are responsible for creating the fix. The
+vulnerabilities handled in this set of processes could be in code the organization wrote or maintains, or they
+could be in erroneous configurations or outdated systems the organization owns.
+• Organizations, including open source projects, should assume that publicly visible code changes, code
+comments, and release candidates containing security vulnerability fixes are equivalent to public
+disclosure of such issues. Organizations should have plans to release security advisories concurrently,
+including for any public code commits or mitigations to address security vulnerabilities.
+• Organizations should prepare to receive vulnerability reports and act on them to investigate, prioritize,
+and create remediations.157
+• Organizations should make investments in software supply chain security, such as securing their
+Continuous Integration/Continuous Delivery (CI/CD) pipeline and establishing vulnerability
+coordination communication channels with supply chain partners to facilitate smoother and more
+efficient vulnerability coordination.
+• Organizations should measure their mean time to repair (MTTR) vulnerabilities that are reported to
+them to ensure they are able to investigate and resolve vulnerabilities in code they maintain or deploy
+in a timely manner.
+Software developers and maintainers should be prepared to participate in vulnerability handling and
+coordinated vulnerability disclosure, including participation in relevant multi-party supply chain vulnerability
+coordination, per guidance in ISO 29147:2018158 and ISO 30111:2019.159 To support organizations in their
+work to develop vulnerability disclosure and handling process:
+• CISA should continue to encourage and, where possible, incentivize parties that discover
+vulnerabilities (for example security researchers or outside developers), to disclose them to the
+affected vendor or a trusted third party.
+• Computer Emergency Response Team Coordination Center (CERT/CC) should be given additional
+personnel and other resources to facilitate increasing its current coordination capacity in anticipation
+of increased ecosystem-wide software supply chain vulnerability coordination events.
+9. Software developers and maintainers should implement secure software practices.
+Software developers and maintainers should adopt standard practices and technologies to build secure
+software in accordance with ISO 27034:2011160 and NIST’s Secure Software Development Framework.161
+• Software developers and maintainers should establish a comprehensive approach to code
+maintenance that encompasses consistent secure development processes, and accounts for software
+security assessments and vulnerability management operations, as well as patch creation and
+coordinated disclosure.
+• To minimize inadvertent risk, as a best practice, code maintainers should implement communication
+processes and mechanisms that provide consistent and relevant security messaging to software
+package users, noting all recommended data to include in a security advisory.
+• Software developers and maintainers should leverage Integrated Development Environment (IDE)
+tools and add-ons for assisting in secure software development, consistent with NIST’s Secure
+Software Development Framework.162
+• Software developers and maintainers should also integrate source code scanning and tools that
+provide software maintenance status and versions to heighten their situational awareness of
+applications and software used within the environment.
+BUILD A BETTER SOFTWARE ECOSYSTEM
+The Log4j incident highlighted the need to evolve industry-accepted practices and technologies that lead to
+software that is secure by design.
+10. Open source software developers should participate in community-based security initiatives.
+Given the wealth of resources now available for the development of secure open source software, developers
+should engage in security uplift programs. The Board recognizes organizations should select the best
+programming options for their needs, so the Board lists some options below for reference only.
+• OpenSSF offers the following resources to the open source community: security training and
+community resources;163 auditing services through the Alpha Omega initiative to optimize security
+without increasing overhead;164 and security Scorecards,165 which allow a project to assess its risk
+and security posture.
+• Open Web Application Security Program (OWASP) Foundation,166 which tracks community-led open
+source projects and focuses on improving the security of software, offers publicly available data
+tracking the top security risks to web applications, as well as tools and resources for developers,
+including education, training, and community networking.
+• The Open Source Software Security Mobilization Plan has several workstreams focused on assisting
+the open source community through heightened security for critical components, including code
+audits, and improving the software development and build process.167
+11. Invest in training software developers in secure software development.
+Software developers come from a range of backgrounds and often do not have access to formal training
+programs. Furthermore, students earning accredited computer science degrees or other types of certifications
+generally have no requirement to conduct hands-on study of secure coding practices, nor is knowledge of
+secure programming required for building software.
+• The U.S. government should continue to invest in and engage with higher education institutions and
+training programs by:
+establishing and incentivizing cybersecurity curricula and certification programs, and
+o
+integrating cybersecurity modules into all computer science programs, similar to the
+National Centers of Academic Excellence in Cybersecurity (NCAE-C) program (managed by
+NSA, with multiple federal partners) and NIST’s cybersecurity education initiatives;168
+determining a strategic approach on how to influence educational initiatives as a
+o
+component of a national cyber education strategy, such that recommended security
+training is integrated into requirements for computer science degrees and IT
+certifications. Congress should consider amendments to the Bipartisan Innovation and
+Competition Act to this effect (Numerous precedents exist for more active federal
+involvement in educational matters with security implications, such as the National
+Research Act of 1974); and
+ONCD should develop a strategic engagement strategy in collaboration with the National
+o
+Governor’s Association, the Education Commission of the United States, and leading
+educational organizations (e.g., ABET, CSAB, AAUP, APLU, ACE, AAU, and HLC169) to
+implement the above recommendations. The strategy should include recommendations
+for a national cyber education strategy that incentivizes including security training into
+requirements for computer science degrees and IT certifications.
+• Universities and community colleges should incorporate cybersecurity training and secure
+development practices as required components of computer science programming degrees and
+certifications.
+Accredited computer science degrees should provide training in secure coding practices
+o
+and cybersecurity fundamentals.
+The Open Source Software Security Mobilization Plan includes a goal to secure open source software by
+delivering baseline secure software development education and certification to all.170
+12. Improve SBOM tooling and adoptability.
+Organizations need the ability to quickly identify vulnerable software to facilitate swift response. Traceability
+capabilities, such as SBOMs that can catalog the components of software, are promising possibilities, but at
+present are limited. The Board anticipates future improvements in SBOM implementations and adoption, which
+may enable organizations to leverage SBOMs for vulnerability management. In the meantime, the Board
+recommends that:
+• software developers should generate and ship SBOMs with their software, and be prepared to
+incorporate improvements in the tooling and processes as they become available to the industry.
+Executive Order (EO) 14028 Improving the Nation’s Cybersecurity provides a roadmap for the inclusion of
+SBOMs when providing software to the federal government.171
+The Board also lends its support to efforts, such as The Open Source Software Security Mobilization Plan,
+that advocate for SBOM improvements to create friction-free seamless tooling and training, and drive
+adoption industry-wide.172
+13. Increase investments in open source software security.
+The U.S. government is a significant consumer and producer of open source software, and therefore should
+play a role in driving security enhancements to the overall open source ecosystem.
+• OMB should take appropriate steps to direct federal agency IT staff to contribute to the security and
+maintenance of open source software upon which they rely, as part of their regular duties.
+• ONCD, in coordination with OMB, should consider effective funding mechanisms to invest in widely
+used open source software tools, and to catalyze improvements in the overall security of the open
+source software ecosystem.
+• NIST should engage with the open source software community to develop practical guidance on how
+to most effectively apply federal policies and frameworks around secure software development for
+open source software.
+Private sector companies that build commercial software that includes open source libraries or dependencies
+should commit financial resources toward the open source projects that they deploy. Specific examples
+include:
+• paying developers, security engineers, and other essential roles in supporting secure software
+development, vulnerability disclosure and handling processes, and vulnerability response for open
+source projects; and
+• contributing funding and knowledge to centralized open source security projects.
+The White House Meeting on Software Security (2022) called for software maintainers to invest in the regular
+maintenance of open source software.173
+14. Pilot open source software maintenance support for critical services.
+The Board heard from many interviewees about the operational risks introduced to organizations because of
+limitations in open source software maintenance. Open source developers are usually not paid to maintain
+their software, especially not older versions that are often deployed deeply and widely across systems. Log4j
+was a particularly extreme example of this. The burden of maintenance then falls to organizations that use
+open source software, and can be expensive, time-consuming, and unpredictable. Organizations should be
+able to project the maintenance costs of open source software, and obtain that information from a trusted
+source. Funding the maintenance of critical open source software could drive a more sustainable model for
+security at scale and enable timely and effective distribution of updates and mitigations.
+A collaborative organization, such as Critical Infrastructure Partnership Advisory Council (CIPAC), should work
+with the Forum of Incident Response and Security Teams (FIRST) to bring the membership of major vendors’
+Product Security Incident Response Teams (PSIRTs) together with both public and private sector partners
+(including OpenSSF) to pilot a collection of the most commonly included open source libraries or dependencies
+that would:
+• generate a critical open source package list for major industries, leveraging the PSIRTs’ data and
+criteria such as OpenSSF’s Criticality Score;
+• project the costs associated with managing the collection and identify funding streams from
+government and private sector;
+• develop and apply a framework for maintenance of packages, including protocols that are automated
+where possible, to dynamically swap out old and vulnerable libraries; and
+• establish security requirements and associated metrics for tracking and reporting (in tandem, this
+could leverage OpenSSF’s Scorecard project and similar endeavors).
+INVESTMENTS IN THE FUTURE
+To address the significant challenges present in the current software ecosystem, innovative solutions will be
+necessary. The Board proposes several areas for additional examination and research towards this goal.
+15. Explore a baseline requirement for software transparency for federal government vendors.
+The U.S. government is a significant consumer of software, and should be a driver of change in the
+marketplace around requirements for software transparency.
+• OMB and the Federal Acquisition Regulatory (FAR) Council should use various mechanisms to
+minimize the U.S. government’s use of software without provenance and dependency information, and
+should consider the use of procurement requirements, federal standards and guidelines, and
+investments in automation and tooling, to create clear and achievable expectations for baseline SBOM
+information.
+• OMB should set a specific timeframe to achieve these goals.
+16. Examine the efficacy of a Cyber Safety Reporting System (CSRS).
+The U.S. government, via NIST in conjunction with CISA, should convene a public-private working group to
+examine the risks, efficacy, and requirements for a potential U.S. government-run Cyber Safety Reporting
+System (CSRS). Similar to the National Aeronautics and Space Administration’s (NASA’s) Aviation Safety
+Reporting System, a CSRS could contribute to a system-wide view of the cyber ecosystem and expand and
+centralize the existing external reporting and coordination of cyber safety issues.
+Built on a voluntary model, a CSRS could incentivize anonymized reporting of exploitable vulnerabilities in key
+libraries, software code bases, and key projects. Principles central to operation of such a system include:
+• weighing how to anonymize reporting of vulnerabilities and safety defects;
+• how to incentivize reporting and protocols as non-punitive; and
+• determining independence and non-regulatory use of the system.
+This type of system could also support federally-coordinated efforts to prioritize the identification, monitoring,
+and remediation of software issues that might affect National Critical Functions—supporting systemic risk
+coordination and identifying where common safety issues exist in complex operating environments across
+multiple organizations, such as supply and operating chains.
+As part of this examination, the working group should consider the risks associated with aggregation of
+vulnerabilities and reliance on voluntary reporting of data. This working group should also consider:
+• workflow of government and industry information reported via the CSRS;
+• scalability and effectiveness;
+• public transparency and accountability; and
+• composition of any oversight function.
+Lastly, the working group should aim to complete its work and make any substantive recommendations within
+a six-month period following its establishment.
+17. Explore the feasibility of establishing a Software Security Risk Assessment Center of Excellence
+(SSRACE).
+There is no centralized inventory of open source and proprietary software across federal agencies. CISA should
+explore the feasibility of creating, in collaboration with the private sector, a Software Security Risk Assessment
+Center of Excellence (SSRACE) to develop, manage, and protect a central inventory of all software across
+federal agencies. Such an inventory would facilitate effective notification of and response to software
+vulnerabilities; enhance capability for risk management; and serve as a source of data to inform systemic-level
+risk assessment and drive priority of security improvement.
+In parallel, the SSRACE should also advance the following efforts:
+• identify the open source software used by the U.S. government to support critical mission delivery, and
+advocate for funding from U.S. government grants and commercial sponsorship to support open
+source software foundations to improve software safety;
+• establish principles, metrics, and transparency to drive prioritization and assess improvement;
+• develop performance requirements for industry-wide standard support functions vital to the rapid
+operational risk assessment of vulnerable software. Advocate for existing standards (e.g., CVE,
+Common Platform Enumeration (CPE), Common Configuration Enumeration (CCE)), or champion the
+creation and use of new industry standards. Examples include standard naming of vulnerabilities,
+software versions, development metadata; and
+• identify and advocate for best practices in lifecycle management and incentives for vendors to use
+code that can support timely software updates and mitigations for critical vulnerabilities.
+18. Study the incentive structures required to build secure software.
+Many interviewees stressed the volunteer nature of the open source software community. In light of that, the
+Board recommends the U.S. government’s National Academy of Sciences Cyber Resilience Forum undertake a
+study of incentive structures to build secure software. The Forum should consider:
+• legal, structural, and regulatory incentives for organizations, to include, for example, the potential for
+software liability reform;
+• developer incentive structures that increase awareness of safety issues. For example, developers
+could obtain a trust rating for their contributions through extended education on secure coding or
+threat modeling. This developer rating could be a component of the software’s overall health rating;
+and
+• challenges to adopting incentives, including, but not limited to, resourcing and volunteer fatigue.
+The Open Source Software Security Mobilization Plan proposes initial ideas to incentivize the adoption of
+secure software practices such as training and badges.174
+19. Establish a government-coordinated working group to improve identification of software with known
+vulnerabilities.
+Recognizing that the industry faces challenges with current approaches to vulnerability identification and
+mitigation, NIST should convene a working group, to include private sector expertise, to determine if and how
+better methods can be developed.
+• This effort should include the National Science Foundation (NSF), given its vantage point into possible
+academic research that exists in this area.
+The working group should explore if software can become self-managed, or even self-aware, at a level of
+capability where software reports, if not takes actions, based on self-identification of known vulnerabilities. The
+outcome of the working group should be to try to create a standard that industry can adopt—to disrupt the
+traditional vulnerability discovery and software maintenance process, which currently relies on imperfect and
+incomplete scanning methods for vulnerable systems and software.
+• The working group should conclude its work within three years.
