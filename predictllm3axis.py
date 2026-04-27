@@ -21,6 +21,8 @@ import sys
 import argparse
 import numpy as np
 
+from aggregate_unified import agg_threeaxis
+
 sys.stdout.reconfigure(encoding='utf-8')
 
 OLLAMA_URL = 'http://localhost:11434/api/generate'
@@ -84,7 +86,7 @@ MAX_CHUNKS = 8
 # Text handling
 # ---------------------------------------------------------------------------
 
-def make_chunks(text):
+def make_chunks(text, max_chunks=MAX_CHUNKS):
     if len(text) <= MAX_CHARS:
         return [text]
 
@@ -92,7 +94,7 @@ def make_chunks(text):
     start  = 0
     total  = len(text)
 
-    while start < total and len(chunks) < MAX_CHUNKS:
+    while start < total and len(chunks) < max_chunks:
         end   = min(start + CHUNK_SIZE, total)
         chunk = text[start:end]
         label = f"[SECTION {len(chunks)+1} — characters {start}-{end} of {total}]\n"
@@ -176,6 +178,8 @@ def main():
     parser.add_argument('textfile', help='Path to text file')
     parser.add_argument('--runs', type=int, default=N_RUNS,
                         help=f'Number of LLM runs to average (default: {N_RUNS})')
+    parser.add_argument('--max-chunks', type=int, default=MAX_CHUNKS,
+                        help=f'Max chunks for long docs (default: {MAX_CHUNKS})')
     args = parser.parse_args()
 
     try:
@@ -185,7 +189,7 @@ def main():
         print(f"File not found: {args.textfile}")
         sys.exit(1)
 
-    chunks     = make_chunks(text)
+    chunks     = make_chunks(text, max_chunks=args.max_chunks)
     is_chunked = len(chunks) > 1
 
     print(f"\nfile:    {args.textfile}")
@@ -246,12 +250,40 @@ def main():
     stds  = {a: round(float(np.std(run_means[a])),  2) for a in AXES}
     failure_type = run_failure_types[-1] if run_failure_types else ''
 
+    # technical_max = mean of per-run peak-chunk technical scores
+    if all_chunk_data:
+        run_tech_peaks = [max(rd['technical']) for rd in all_chunk_data]
+        tech_max = round(float(np.mean(run_tech_peaks)), 2)
+    else:
+        tech_max = final['technical']
+
+    record = {
+        "technical":        final['technical'],
+        "technical_max":    tech_max,
+        "pseudo_technical": final['pseudo_technical'],
+        "political":        final['political'],
+    }
+    agg = round(agg_threeaxis(record), 2)
+
     print(f"\n{'='*60}")
     print(f"RESULTS  (mean over {len(run_means['technical'])} runs)")
     print(f"{'='*60}")
     for a in AXES:
         print(f"  {a:<20s}  {render_bar(final[a])}  std={stds[a]:.2f}")
+    print(f"  technical_max:        {tech_max:.2f}  (mean of per-run peaks)")
     print(f"  failure type:         {failure_type}")
+    print(f"{'='*60}")
+
+    # agg score in 0-8 bar
+    filled = max(0, min(8, int(round(agg))))
+    bar8   = '#' * filled + '.' * (8 - filled)
+    label8 = 'POLITICAL' if agg <= 2.5 else ('TECHNICAL' if agg >= 5.5 else 'MIXED')
+    print(f"\nAGG SCORE:  [{bar8}]  {agg:.2f}/8  ({label8})")
+    pol_pen = final['political'] * max(0.0, 1.0 - tech_max / 4.0)
+    print(f"  formula:  w_tm*tech_max + w_t*tech - w_pt*pseudo - w_pol*pol_pen")
+    print(f"    tech_max={tech_max:.2f}  tech={final['technical']:.2f}"
+          f"  pseudo={final['pseudo_technical']:.2f}  pol_pen={pol_pen:.2f}")
+    print(f"  (w_tm=2.5, w_t=0.5, w_pt=0.5, w_pol=0.75  ->  agg={agg:.2f})")
     print(f"{'='*60}")
 
     if is_chunked:

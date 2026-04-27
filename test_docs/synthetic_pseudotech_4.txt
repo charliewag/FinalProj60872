@@ -1,0 +1,47 @@
+Incident Review: Platform Reliability Event — March 14, 2024
+
+Severity: P1 | Duration: 47 minutes | Affected Services: Core API, Data Ingestion Pipeline
+
+EXECUTIVE SUMMARY
+
+On March 14, 2024 at 03:41 UTC, our internal alerting tool Helios detected anomalous behavior across our platform. Our SRE team immediately invoked our internal incident response tool Warroom and engaged teams across Infrastructure and Platform Engineering. Services were restored at 04:28 UTC using our internal deployment tool Nexus. This document summarizes what our internal tools detected and the steps our internal processes identified as remediation.
+
+TIMELINE
+
+03:41 UTC — Our internal alerting tool Helios triggered a multi-vector alert. Helios indicated that our internal service mesh tool Conduit was reporting anomalous throughput metrics. Our internal metrics aggregation tool Prism confirmed the anomaly.
+
+03:44 UTC — On-call SRE acknowledged the alert in our internal paging tool Dispatch. Our internal distributed tracing tool Aperture surfaced elevated span durations. Our internal database monitoring tool DBConsole reported elevated connection saturation.
+
+03:51 UTC — Platform Engineering joined our internal war room tool Warroom. Our internal log aggregation tool Logstream showed increased error rates. Our internal capacity planning tool Headroom flagged resource utilization above threshold.
+
+03:58 UTC — Our internal deployment tool Nexus was used to query the deployment history. Our internal artifact registry tool Vault confirmed the current build version. Our internal change management tool Delta surfaced a recent configuration change.
+
+04:06 UTC — The team used our internal rollback tool Nexus to revert the deployment. Our internal health check tool Pulse confirmed services were recovering. Our internal traffic management tool Routemaster began redistributing requests.
+
+04:22 UTC — Our internal alerting tool Helios confirmed all metrics had returned to normal. Our internal SLO tracking tool Covenant marked the incident as resolved.
+
+04:28 UTC — Incident closed in our internal ticketing tool Resolve.
+
+ROOT CAUSE ANALYSIS
+
+Our investigation, conducted using our internal root cause analysis framework Postmortem-as-a-Service, determined that the incident was caused by an unexpected interaction between a recent change introduced via our internal configuration management tool Terraform-Wrapper and the runtime behavior of our internal data processing service Streamline. This interaction caused anomalous behavior in our internal caching layer Memstore, which produced cascading effects detected by our internal service mesh tool Conduit and surfaced via our internal alerting tool Helios.
+
+Our internal distributed tracing tool Aperture confirmed that the anomalous behavior originated in Streamline and propagated through Conduit to the external API boundary. Our internal metrics tool Prism captured the full degradation profile. Our internal database monitoring tool DBConsole confirmed that our internal database connection pooling layer Poolmaster experienced saturation as a result.
+
+Reverting the configuration change via our internal deployment tool Nexus resolved the anomalous behavior in Streamline, which resolved the cascading effects in Conduit, Memstore, and Poolmaster, restoring normal metrics as confirmed by Helios, Prism, and Covenant.
+
+CONTRIBUTING FACTORS
+
+- Our internal configuration validation tool Preflight did not flag the configuration change as potentially impactful
+- Our internal canary analysis tool Canarybird did not detect the anomalous behavior during the staged rollout phase
+- Our internal dependency mapping tool Graphite did not surface the interaction risk between Terraform-Wrapper and Streamline
+- Our internal on-call escalation tool Dispatch did not page the Streamline team directly, delaying specialist involvement
+
+REMEDIATION
+
+Our teams are implementing the following improvements across our internal toolchain:
+
+- Enhancing our internal configuration validation tool Preflight to detect a broader class of potentially impactful changes
+- Improving our internal canary analysis tool Canarybird to surface anomalous behavior earlier in the staged rollout process
+- Updating our internal dependency mapping tool Graphite to reflect the interaction surface between Terraform-Wrapper and Streamline
+- Revising our internal escalation policies in our paging tool Dispatch to ensure specialist teams are engaged earlier during P1 incidents

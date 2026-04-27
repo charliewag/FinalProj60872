@@ -1,0 +1,39 @@
+Amazon’s huge cloud computing arm reportedly experienced at least two outages caused by its own artificial intelligence tools, raising questions about the company’s embrace of AI as it lays off human employees.
+
+A 13-hour interruption to Amazon Web Services’ (AWS) operations in December was caused by an AI agent, Kiro, autonomously choosing to “delete and then recreate” a part of its environment, the Financial Times reported.
+
+AWS, which provides vital infrastructure for much of the internet, suffered several outages last year.
+
+One incident, in October, downed dozens of sites for hours and prompted discussion over the concentration of online services on infrastructure owned by a few massive companies. AWS has won 189 UK government contracts worth £1.7bn since 2016, the Guardian reported in October.
+
+The AI-caused outages were smaller events, said the company, and only one affected customer-facing services.
+
+Amazon confirmed plans to cut 16,000 jobs in January, after it laid off 14,000 staff last October. In January its chief executive, Andy Jassy, reportedly said these cuts were about company culture, and not about replacing workers with AI.
+
+However, Jassy has previously said that efficiency gains from AI will reduce Amazon’s workforce in the coming years, and AI agents will allow it to “focus less on rote work and more on thinking strategically about how to improve customer experiences”.
+
+In a statement to the Financial Times, Amazon said it was a coincidence that AI tools were involved in the outages, and that there was no evidence that such technology led to more errors than human engineers. “In both instances, this was user error, not AI error,” it said.
+
+Amazon told the Guardian that there was just one incident that had affected AWS, rather than two.
+
+Several experts were sceptical of this assessment. A security researcher, Jamieson O’Reilly, said: “While engineering errors caused by traditional tools and humans are not a rare occurrence, the difference between these and mishaps where AI is involved is that ‘without’ AI, a human typically needs to manually type out a set of instructions, and while doing so they have much more time to realise their own error.”
+
+AI agents are often deployed in constrained environments and for specific tasks, O’Reilly said, and cannot understand the broader ramifications of, for example, restarting a system or deleting a database – which may have led to the error at Amazon.
+
+“They don’t have full visibility into the context in which they’re running, how your customers might be affected or what the cost of downtime might be at 2am on a Tuesday,” he said.
+
+“You’ve got to continually remind these tools of the context – ‘hey, this is serious, don’t stuff this up’. And if you don’t do this, it starts to forget about all the other consequences.”
+
+Last year, an AI agent designed by the tech company Replit to build an app deleted an entire company database, fabricated reports, and then lied about its actions.
+
+Michał Woźniak, a cybersecurity expert, said it would be nearly impossible for Amazon to completely prevent internal AI agents from making errors in future, because AI systems make unexpected choices and are extremely complex.
+
+“Amazon never misses a chance to point to ‘AI’ when it is useful to them – like in the case of mass layoffs that are being framed as replacing engineers with AI. But when a slop generator is involved in an outage, suddenly that’s just ‘coincidence’,” he added.
+
+A spokesperson from Amazon said: “This brief event was the result of user error – specifically misconfigured access controls – not AI.”
+
+They said the “service interruption was an extremely limited event last year” when a tool used to visualise costs for its customers was affected in parts of China.
+
+They added: “This event didn’t impact compute, storage, database, AI technologies, or any other of the hundreds of services that we run.
+
+“Following these events, we implemented numerous additional safeguards, including mandatory peer review for production access. Kiro puts developers in control – users need to configure which actions Kiro can take, and by default, Kiro requests authorisation before taking any action.”

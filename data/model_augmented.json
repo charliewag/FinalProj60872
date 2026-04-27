@@ -1,0 +1,206 @@
+{
+  "technical": [
+    {
+      "keyword": "code",
+      "coefficient": 2.14637381065825
+    },
+    {
+      "keyword": "bug",
+      "coefficient": 1.7244932809220896
+    },
+    {
+      "keyword": "memory",
+      "coefficient": 1.462129282584388
+    },
+    {
+      "keyword": "function",
+      "coefficient": 1.4472734748108547
+    },
+    {
+      "keyword": "generated",
+      "coefficient": 1.4035614737433106
+    },
+    {
+      "keyword": "used",
+      "coefficient": 1.3290558130349612
+    },
+    {
+      "keyword": "seconds",
+      "coefficient": 1.3230200162884684
+    },
+    {
+      "keyword": "table",
+      "coefficient": 1.2714962688733722
+    },
+    {
+      "keyword": "space",
+      "coefficient": 1.2670945092074615
+    },
+    {
+      "keyword": "errors",
+      "coefficient": 1.2599373369361515
+    },
+    {
+      "keyword": "servers",
+      "coefficient": 1.2433679474209105
+    },
+    {
+      "keyword": "later",
+      "coefficient": 1.202609945115378
+    },
+    {
+      "keyword": "email",
+      "coefficient": 1.1937889900456995
+    },
+    {
+      "keyword": "error",
+      "coefficient": 1.190352768854712
+    },
+    {
+      "keyword": "load",
+      "coefficient": 1.18857988876988
+    },
+    {
+      "keyword": "case",
+      "coefficient": 1.1760840567346245
+    },
+    {
+      "keyword": "key",
+      "coefficient": 1.156369517054594
+    },
+    {
+      "keyword": "size",
+      "coefficient": 1.1499172915718345
+    },
+    {
+      "keyword": "requests",
+      "coefficient": 1.1445985612000327
+    },
+    {
+      "keyword": "engine",
+      "coefficient": 1.1336895223463823
+    },
+    {
+      "keyword": "use",
+      "coefficient": 1.1025901704840344
+    },
+    {
+      "keyword": "channel",
+      "coefficient": 1.097137537819076
+    },
+    {
+      "keyword": "mode",
+      "coefficient": 1.0918126207337289
+    },
+    {
+      "keyword": "point",
+      "coefficient": 1.0481037628400107
+    },
+    {
+      "keyword": "tables",
+      "coefficient": 1.021693357044717
+    }
+  ],
+  "political": [
+    {
+      "keyword": "year",
+      "coefficient": -2.6500438672658237
+    },
+    {
+      "keyword": "company",
+      "coefficient": -1.8186080770121786
+    },
+    {
+      "keyword": "computer",
+      "coefficient": -1.492117256287204
+    },
+    {
+      "keyword": "week",
+      "coefficient": -1.46011532767307
+    },
+    {
+      "keyword": "morning",
+      "coefficient": -1.3863155931962825
+    },
+    {
+      "keyword": "months",
+      "coefficient": -1.2232721462104799
+    },
+    {
+      "keyword": "01",
+      "coefficient": -1.1836862730885738
+    },
+    {
+      "keyword": "issues",
+      "coefficient": -1.0820740213910822
+    },
+    {
+      "keyword": "want",
+      "coefficient": -1.0812616500221024
+    },
+    {
+      "keyword": "clients",
+      "coefficient": -1.0360936508079448
+    },
+    {
+      "keyword": "post",
+      "coefficient": -0.9748532279971194
+    },
+    {
+      "keyword": "day",
+      "coefficient": -0.9249533703213365
+    },
+    {
+      "keyword": "people",
+      "coefficient": -0.9177660510605056
+    },
+    {
+      "keyword": "000",
+      "coefficient": -0.8981589225883282
+    },
+    {
+      "keyword": "problems",
+      "coefficient": -0.8850000553791483
+    },
+    {
+      "keyword": "02",
+      "coefficient": -0.8832128700105111
+    },
+    {
+      "keyword": "reported",
+      "coefficient": -0.8336513329380031
+    },
+    {
+      "keyword": "new",
+      "coefficient": -0.7989310568378899
+    },
+    {
+      "keyword": "24",
+      "coefficient": -0.7946554468296458
+    },
+    {
+      "keyword": "performance",
+      "coefficient": -0.7923558084320698
+    },
+    {
+      "keyword": "site",
+      "coefficient": -0.7908111889859981
+    },
+    {
+      "keyword": "experience",
+      "coefficient": -0.7898304952859253
+    },
+    {
+      "keyword": "years",
+      "coefficient": -0.7787112352658503
+    },
+    {
+      "keyword": "11",
+      "coefficient": -0.7685410578918626
+    },
+    {
+      "keyword": "going",
+      "coefficient": -0.7563650923857506
+    }
+  ]
+}

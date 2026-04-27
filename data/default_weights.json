@@ -1,0 +1,27 @@
+{
+  "note": "Semantically-chosen defaults from aggregate_unified.py \u2014 not optimised",
+  "oneaxis": {
+    "gap_penalty": 0.5,
+    "gap_tolerance": 1.5,
+    "diagnostics": {
+      "std_all": 1.5586451287168193,
+      "p90_hand": 6.67,
+      "p10_news": 0.0,
+      "hand_mean": 4.761959064327485,
+      "news_mean": 0.692381562099872
+    }
+  },
+  "threeaxis": {
+    "w_tm": 2.5,
+    "w_t": 0.5,
+    "w_pt": 0.5,
+    "w_pol": 0.75,
+    "diagnostics": {
+      "std_all": 1.8229255847213068,
+      "p90_hand": 7.514608823529413,
+      "p10_news": 0.7835294117647059,
+      "hand_mean": 6.031593120055039,
+      "news_mean": 2.1025104240415757
+    }
+  }
+}

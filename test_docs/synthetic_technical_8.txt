@@ -1,0 +1,67 @@
+Postmortem: PostgreSQL Deadlock Under Concurrent Batch Insert — 2024-03-14
+
+Duration: 14 minutes (03:41 UTC – 03:55 UTC)
+Impact: All writes to the orders table blocked; reads unaffected.
+
+ROOT CAUSE
+
+A deadlock between two database transactions sharing two row-level locks in opposite acquisition order. The batch ingestion worker and the order reconciliation job both acquire locks on the orders table and the order_items table, but in reverse sequence:
+
+  Ingestion worker:    LOCK orders -> LOCK order_items
+  Reconciliation job:  LOCK order_items -> LOCK orders
+
+When both transactions run concurrently, each holds the first lock and waits for the second. PostgreSQL's deadlock detector fires after lock_timeout (1 second by default on this cluster), picks one victim, and rolls it back. The rolled-back transaction retries immediately, hits the same contention, and deadlocks again. Under the load spike at 03:41 (batch size 40,000 rows vs. typical 3,000), contention was continuous for 14 minutes until the reconciliation job completed its sweep.
+
+FAILURE MECHANISM
+
+The deadlock is deterministic given the lock ordering. PostgreSQL acquires row-level locks with SELECT ... FOR UPDATE, which pins individual row versions in the heap. The ingestion worker issues:
+
+  BEGIN;
+  SELECT id FROM orders WHERE status = 'pending' FOR UPDATE;
+  -- ... inserts into order_items for each selected order
+  UPDATE orders SET status = 'processing' WHERE id = ANY($1);
+  COMMIT;
+
+The reconciliation job issues:
+
+  BEGIN;
+  SELECT order_id FROM order_items WHERE reconciled = false FOR UPDATE;
+  UPDATE orders SET reconciled = true WHERE id = ANY($1);
+  COMMIT;
+
+If the ingestion worker has locked row R in orders and the reconciliation job has locked a child row in order_items that belongs to R, both transactions stall. The pg_locks view confirmed this pattern: 23 deadlock events in pg_stat_activity within the 14-minute window, each with the same pair of relation OIDs (orders: 16842, order_items: 16891).
+
+DETECTION
+
+PagerDuty fired on the orders_write_latency_p99 alert (threshold: 500ms, observed: 18,400ms) at 03:42. The on-call engineer queried pg_stat_activity and saw 47 transactions in state 'idle in transaction' or 'lock wait'. A second query on pg_locks with a self-join on granted=false identified the two conflicting relation OIDs within 90 seconds.
+
+FIX
+
+Changed the reconciliation job to acquire locks in the same order as the ingestion worker (orders first, then order_items). Specifically, the reconciliation job now fetches affected order IDs by joining order_items to orders and locks the orders rows first:
+
+  BEGIN;
+  SELECT o.id FROM orders o
+    JOIN order_items oi ON oi.order_id = o.id
+   WHERE oi.reconciled = false
+     FOR UPDATE OF o;                   -- locks orders rows only
+  -- second statement locks order_items rows, now safe
+  SELECT oi.id FROM order_items oi
+   WHERE oi.order_id = ANY($1)
+     FOR UPDATE;
+  UPDATE orders SET reconciled = true WHERE id = ANY($1);
+  UPDATE order_items SET reconciled = true WHERE order_id = ANY($1);
+  COMMIT;
+
+This guarantees a consistent lock acquisition order across all transactions touching both tables, making deadlock on this pair impossible by construction. Deployed as hotfix commit a3f92c1 at 03:54 UTC. Deadlock events dropped to zero immediately.
+
+CONTRIBUTING FACTORS
+
+1. Lock ordering was never enforced at the schema or ORM level. Each job was written independently without reference to the other.
+2. Batch size tripled on 2024-03-14 due to a backlog from a weekend data freeze. Normal batch sizes (3,000 rows) produce contention that resolves within a single deadlock retry cycle, so the bug was invisible at normal load.
+3. No integration test exercises both jobs concurrently. Unit tests mock the database.
+
+RECURRENCE PREVENTION
+
+- Added a linting rule to the ORM wrapper that enforces lock acquisition order by table OID (lower OID must be locked first). This is enforced at transaction open time and raises an error in development if violated.
+- Added pg_stat_activity deadlock count to the monitoring dashboard with a threshold alert at 1 event/minute.
+- Updated the reconciliation job load test to run alongside a concurrent ingestion worker at 5x normal batch size.

@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(ls g:/Post_mortem_proj/*.txt)",
+      "Bash(ls g:/Post_mortem_proj/data/*.txt)"
+    ]
+  }
+}

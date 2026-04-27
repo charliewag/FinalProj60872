@@ -11,11 +11,18 @@ sections (high peak) while still averaging out to a mixed score if it also
 contains policy/PR framing.  Both numbers are reported.
 
 Usage:
-    python predict.py <textfile> [--model handedited|combined]
+    python predict.py <textfile> [--model handedited|combined|ensemble]
 
 Examples:
     python predict.py csrb_log4j.txt
     python predict.py challenger.txt --model handedited
+    python predict.py challenger.txt --model ensemble
+
+ensemble:
+    Geometric mean of handedited and combined scores per chunk.
+    sqrt(handedited * combined) — stays in 0-8 naturally, penalises
+    disagreement, and combines political detection (combined) with
+    technical depth detection (handedited).
 """
 
 import sys
@@ -40,6 +47,23 @@ def load_model(label):
     except FileNotFoundError:
         print(f"Model '{label}' not found. Run train.py first.")
         sys.exit(1)
+
+
+W_HE = 0.65   # handedited weight — lets technical depth dominate
+W_CO = 1 - W_HE  # combined weight — corrective downward pull on political content
+
+
+def score_chunk_ensemble(text, vec_he, clf_he, vec_co, clf_co, top_n=20):
+    """Weighted geometric mean for a single chunk using pre-loaded models.
+
+    he^W_HE * co^W_CO — stays in 0-8 naturally. Handedited drives technical
+    recognition; combined provides political correction (co=0 pulls the score
+    to 0 regardless of weight, so a strong political signal always wins).
+    """
+    s_he, tech_he, pol_he = score_text(text, vec_he, clf_he, top_n)
+    s_co, _,       _      = score_text(text, vec_co, clf_co, top_n)
+    score = float(np.clip((s_he ** W_HE) * (s_co ** W_CO), 0, 8))
+    return score, tech_he, pol_he, s_he, s_co
 
 
 def make_chunks(text):
@@ -126,9 +150,9 @@ def print_drivers(tech_drivers, pol_drivers, top_n):
 def main():
     parser = argparse.ArgumentParser(description='Score a postmortem text file')
     parser.add_argument('textfile', help='Path to text file to score')
-    parser.add_argument('--model', default='handedited',
-                        choices=['handedited', 'combined'],
-                        help='Which model to use (default: handedited)')
+    parser.add_argument('--model', default='ensemble',
+                        choices=['handedited', 'combined', 'ensemble'],
+                        help='Which model to use (default: ensemble)')
     parser.add_argument('--top', type=int, default=10,
                         help='Number of keywords to show per chunk (default: 10)')
     args = parser.parse_args()
@@ -140,7 +164,13 @@ def main():
         print(f"File not found: {args.textfile}")
         sys.exit(1)
 
-    vectorizer, clf = load_model(args.model)
+    is_ensemble = args.model == 'ensemble'
+    if is_ensemble:
+        vec_he, clf_he = load_model('handedited')
+        vec_co, clf_co = load_model('combined')
+    else:
+        vectorizer, clf = load_model(args.model)
+
     chunks = make_chunks(text)
     is_chunked = len(chunks) > 1
 
@@ -153,31 +183,61 @@ def main():
 
     # --- score each chunk ---
     chunk_scores     = []
-    chunk_results    = []   # (score, tech_drivers, pol_drivers, label)
+    chunk_results    = []   # (score, tech_drivers, pol_drivers, label, s_he, s_co)
+    he_scores        = []   # per-chunk handedited scores (for LLM-style aggregation)
+    co_scores        = []   # per-chunk combined scores
 
     for chunk_text, label in chunks:
-        score, tech_drivers, pol_drivers = score_text(
-            chunk_text, vectorizer, clf, top_n=args.top
-        )
-        chunk_scores.append(score)
-        chunk_results.append((score, tech_drivers, pol_drivers, label))
+        if is_ensemble:
+            score, tech_drivers, pol_drivers, s_he, s_co = score_chunk_ensemble(
+                chunk_text, vec_he, clf_he, vec_co, clf_co, top_n=args.top
+            )
+            chunk_scores.append(score)
+            he_scores.append(s_he)
+            co_scores.append(s_co)
+            chunk_results.append((score, tech_drivers, pol_drivers, label, s_he, s_co))
+        else:
+            score, tech_drivers, pol_drivers = score_text(
+                chunk_text, vectorizer, clf, top_n=args.top
+            )
+            chunk_scores.append(score)
+            chunk_results.append((score, tech_drivers, pol_drivers, label, None, None))
 
-    mean_score = float(np.mean(chunk_scores))
+    # Aggregate scores — ensemble uses LLM-style aggregation when chunked:
+    # handedited: (2×max + 0.5×mean) / 2.5  — rewards peak technical sections
+    # combined:   mean                        — political correction reflects whole doc
+    if is_ensemble and is_chunked:
+        agg_he   = (2.0 * max(he_scores) + 0.5 * float(np.mean(he_scores))) / 2.5
+        agg_co   = float(np.mean(co_scores))
+        mean_score = float(np.clip(agg_he ** W_HE * agg_co ** W_CO, 0, 8))
+    else:
+        mean_score = float(np.mean(chunk_scores))
+
     max_score  = float(np.max(chunk_scores))
     max_idx    = int(np.argmax(chunk_scores))
 
     # --- summary header ---
     print(f"\n{'='*58}")
     if is_chunked:
-        print(f"MEAN SCORE:  {render_bar(mean_score)}")
-        print(f"PEAK SCORE:  {render_bar(max_score)}"
+        if is_ensemble:
+            agg_he_val = (2.0 * max(he_scores) + 0.5 * float(np.mean(he_scores))) / 2.5
+            agg_co_val = float(np.mean(co_scores))
+            print(f"SCORE:  {render_bar(mean_score)}")
+            print(f"  he_agg={agg_he_val:.2f}  co_agg={agg_co_val:.2f}"
+                  f"  (2*max+0.5*mean)/2.5 * mean")
+        else:
+            print(f"MEAN SCORE:  {render_bar(mean_score)}")
+        print(f"PEAK CHUNK:  {render_bar(max_score)}"
               f"  <- chunk {max_idx+1}")
-        print(f"\n  mean = overall tone across the full document")
-        print(f"  peak = most technical section the model found")
         scores_str = '  '.join(f"c{i+1}:{s:.1f}" for i, s in enumerate(chunk_scores))
-        print(f"\n  per-chunk: {scores_str}")
+        label = "per-chunk" if not is_ensemble else "per-chunk ensemble"
+        print(f"\n  {label}: {scores_str}")
     else:
         print(f"SCORE:  {render_bar(mean_score)}")
+        if is_ensemble:
+            _, _, _, _, s_he, s_co = chunk_results[0]
+            print(f"  handedited: {s_he:.2f}   combined: {s_co:.2f}"
+                  f"   geom-mean: {mean_score:.2f}")
     print(f"{'='*58}")
     print(f"  0 = completely political  (vague reassurance, no mechanism)")
     print(f"  8 = completely technical  (root cause, mechanism, fix, reproducible)")
@@ -187,20 +247,17 @@ def main():
         print(f"\n{'='*58}")
         print(f"PER-CHUNK KEYWORD BREAKDOWN")
         print(f"{'='*58}")
-        for i, (score, tech_drivers, pol_drivers, label) in enumerate(chunk_results):
+        for i, (score, tech_drivers, pol_drivers, label, s_he, s_co) in enumerate(chunk_results):
             peak_tag = '  <- PEAK' if i == max_idx else ''
-            print(f"\n  chunk {i+1}  [{label}]  {render_bar(score)}{peak_tag}")
+            ensemble_tag = f"  (he={s_he:.1f} co={s_co:.1f})" if is_ensemble else ""
+            print(f"\n  chunk {i+1}  [{label}]  {render_bar(score)}{peak_tag}{ensemble_tag}")
             print_drivers(tech_drivers, pol_drivers, args.top)
     else:
-        # single chunk — show full keyword list
-        score, tech_drivers, pol_drivers, _ = chunk_results[0]
+        score, tech_drivers, pol_drivers, _, _, _ = chunk_results[0]
         print()
         print_drivers(tech_drivers, pol_drivers, args.top)
 
-    # --- net signal summary ---
-    # Use the keywords from the highest-scoring chunk for the summary,
-    # since that is the section with the strongest technical signal.
-    _, best_tech, best_pol, _ = chunk_results[max_idx]
+    _, best_tech, best_pol, _, _, _ = chunk_results[max_idx]
     print(f"\n{'='*58}")
     if is_chunked:
         print(f"  peak chunk signal  (chunk {max_idx+1}):")

@@ -19,6 +19,8 @@ import sys
 import argparse
 import numpy as np
 
+from aggregate_unified import agg_oneaxis
+
 sys.stdout.reconfigure(encoding='utf-8')
 
 OLLAMA_URL = 'http://localhost:11434/api/generate'
@@ -72,7 +74,7 @@ MAX_CHUNKS = 8       # cap — avoids runaway on very long docs
 # Text handling
 # ---------------------------------------------------------------------------
 
-def make_chunks(text):
+def make_chunks(text, max_chunks=MAX_CHUNKS):
     """
     Short docs: returned as a single chunk.
     Long docs: split into overlapping windows of CHUNK_SIZE chars.
@@ -85,7 +87,7 @@ def make_chunks(text):
     start  = 0
     total  = len(text)
 
-    while start < total and len(chunks) < MAX_CHUNKS:
+    while start < total and len(chunks) < max_chunks:
         end   = min(start + CHUNK_SIZE, total)
         chunk = text[start:end]
         label = f"[SECTION {len(chunks)+1} — characters {start}-{end} of {total}]\n"
@@ -165,6 +167,8 @@ def main():
     parser.add_argument('textfile', help='Path to text file')
     parser.add_argument('--runs', type=int, default=N_RUNS,
                         help=f'Number of LLM runs to average (default: {N_RUNS})')
+    parser.add_argument('--max-chunks', type=int, default=MAX_CHUNKS,
+                        help=f'Max chunks for long docs (default: {MAX_CHUNKS})')
     args = parser.parse_args()
 
     try:
@@ -174,7 +178,7 @@ def main():
         print(f"File not found: {args.textfile}")
         sys.exit(1)
 
-    chunks     = make_chunks(text)
+    chunks     = make_chunks(text, max_chunks=args.max_chunks)
     is_chunked = len(chunks) > 1
 
     print(f"\nfile:    {args.textfile}")
@@ -189,6 +193,7 @@ def main():
     print()
 
     run_scores     = []   # mean score per run
+    run_peaks      = []   # peak chunk score per run (for score_max)
     all_reasonings = []
     all_chunk_data = []   # for detailed printout
 
@@ -213,10 +218,12 @@ def main():
         if chunk_scores:
             run_mean = round(float(np.mean(chunk_scores)), 2)
             run_scores.append(run_mean)
+            run_peaks.append(float(max(chunk_scores)))
             all_reasonings.append(chunk_reasonings[-1])
             all_chunk_data.append(chunk_scores)
             if is_chunked:
-                print(f"  run {run+1} mean across {len(chunk_scores)} chunks: {run_mean}")
+                print(f"  run {run+1} mean across {len(chunk_scores)} chunks: {run_mean}"
+                      f"  peak={max(chunk_scores)}")
         else:
             print(f"  run {run+1} all chunks failed")
 
@@ -226,6 +233,10 @@ def main():
 
     mean_score = round(float(np.mean(run_scores)), 2)
     std_score  = round(float(np.std(run_scores)),  2)
+    score_max  = round(float(np.mean(run_peaks)),  2)  # mean of per-run peaks
+
+    record = {"score": mean_score, "score_max": score_max}
+    agg    = round(agg_oneaxis(record), 2)
 
     print(f"\n{'='*60}")
     print(f"RESULT:  {render_bar(mean_score)}")
@@ -234,6 +245,13 @@ def main():
         flat = [s for run in all_chunk_data for s in run]
         print(f"chunks:  {len(flat)} total scores averaged  "
               f"(min={min(flat)}, max={max(flat)})")
+        print(f"score_max (mean of per-run peaks): {score_max:.2f}")
+    print(f"{'='*60}")
+    print(f"\nAGG SCORE:  {render_bar(agg)}")
+    gap = max(0.0, score_max - mean_score)
+    print(f"  formula:  score_max={score_max:.2f}  score_mean={mean_score:.2f}"
+          f"  gap={gap:.2f}  -> agg={agg:.2f}")
+    print(f"  (gap_penalty=0.5, gap_tolerance=1.5)")
     print(f"{'='*60}")
 
     # variance interpretation
