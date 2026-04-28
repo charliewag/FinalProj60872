@@ -98,14 +98,14 @@ def ev1_violin(oa, ta):
             ax.scatter([x], [mean], color="white", s=28, zorder=6)
 
         # stats annotation
-        for vals, x, col, label in [(hand, 1, TECH_COL, "hand-edited"),
+        for vals, x, col, label in [(hand, 1, TECH_COL, "tech postmortems"),
                                     (news, 2, POL_COL,  "fail-news")]:
             ax.text(x, -0.6,
                     f"{label}\nn={len(vals)}  μ={np.mean(vals):.2f}  σ={np.std(vals):.2f}",
                     ha="center", fontsize=8.5, color=col)
 
         ax.set_xticks([]); ax.set_xlim(0.4, 2.6)
-        ax.set_ylim(-1, 9); ax.set_ylabel("Agg score (0–8)", fontsize=10)
+        ax.set_ylim(-1, 9); ax.set_ylabel("Score (0–8)", fontsize=10)
         ax.set_title(title, fontsize=10, fontweight="bold", pad=10)
         ax.set_facecolor(BG)
         ax.spines[["top", "right"]].set_visible(False)
@@ -160,10 +160,10 @@ def fa1_company(ta):
         [f"{c}\n(n={n})" for c, n in zip(companies, counts)],
         rotation=35, ha="right", fontsize=9
     )
-    ax.set_ylabel("Aggregate engineer-utility score  (0–8)", fontsize=11)
+    ax.set_ylabel("Score (0–8)", fontsize=11)
     ax.set_ylim(-0.5, 9)
     ax.axhline(5.5, color="#1565C0", linestyle="--", linewidth=1, alpha=0.5, label="Technical threshold (5.5)")
-    ax.axhline(2.5, color="#C62828", linestyle="--", linewidth=1, alpha=0.5, label="Political threshold (2.5)")
+    ax.axhline(3.0, color="#C62828", linestyle="--", linewidth=1, alpha=0.5, label="Political threshold (3.0)")
     ax.set_title("Score by Company", fontsize=12, fontweight="bold")
     ax.set_facecolor(BG)
     ax.spines[["top", "right"]].set_visible(False)
@@ -221,15 +221,15 @@ def fa2_temporal(ta):
                 color="#555555", zorder=5)
 
     ax.set_xlabel("Year", fontsize=11)
-    ax.set_ylabel("Agg score (0–8)", fontsize=11)
+    ax.set_ylabel("Score (0–8)", fontsize=11)
     ax.set_ylim(0, 9)
     ax.set_xticks(years); ax.set_xticklabels(years, rotation=45, ha="right", fontsize=9)
     ax.axhline(5.5, color=TECH_COL, linestyle=":", linewidth=1, alpha=0.5)
-    ax.axhline(2.5, color=POL_COL,  linestyle=":", linewidth=1, alpha=0.5)
-    ax.set_title("Score Over Time", fontsize=12, fontweight="bold")
+    ax.axhline(3.0, color=POL_COL,  linestyle=":", linewidth=1, alpha=0.5)
+    ax.set_title("Score Over Time Tech Postmortems", fontsize=12, fontweight="bold")
     ax.set_facecolor(BG)
     ax.spines[["top", "right"]].set_visible(False)
-    ax.legend(fontsize=9)
+    ax.legend(fontsize=9, labels=["IQR (25–75th pct)", "Median score", "Mean score"])
 
     plt.tight_layout()
     out = FIGDIR / "FA2_temporal_trends.png"
@@ -262,8 +262,9 @@ def fa3_failure_type(ta):
         by_type[ft].append(r["agg_score"])
         by_src[ft][src] += 1
 
-    # require >= 3 docs total, keep top 12 by mean agg_score
-    ranked = [(ft, scores) for ft, scores in by_type.items() if len(scores) >= 3]
+    # require >= 3 docs total and at least 1 tech postmortem, keep top 12 by mean score
+    ranked = [(ft, scores) for ft, scores in by_type.items()
+              if len(scores) >= 3 and by_src[ft]["hand"] >= 1]
     ranked.sort(key=lambda x: np.mean(x[1]), reverse=True)
     ranked = ranked[:12]
 
@@ -275,7 +276,7 @@ def fa3_failure_type(ta):
     totals = [h + nw for h, nw in zip(n_hand, n_news)]
 
     # colour by mean: green=technical, red=political
-    colours = [TECH_COL if m >= 5.5 else (POL_COL if m <= 2.5 else "#F57F17")
+    colours = [TECH_COL if m >= 5.5 else (POL_COL if m <= 3.0 else "#F57F17")
                for m in means]
 
     fig, ax = plt.subplots(figsize=(13, 7))
@@ -287,20 +288,20 @@ def fa3_failure_type(ta):
                    error_kw=dict(elinewidth=1.2, capsize=3, capthick=1.2,
                                  ecolor="#555555"))
 
-    # labels: mean + n breakdown
-    for i, (mean, h, nw, tot) in enumerate(zip(means, n_hand, n_news, totals)):
-        ax.text(mean + 0.12, i, f"{mean:.2f}  (n={tot}: {h} hand, {nw} news)",
+    # labels: placed past the error bar tip so they never overlap
+    for i, (mean, err, h, nw, tot) in enumerate(zip(means, errors, n_hand, n_news, totals)):
+        ax.text(mean + err + 0.18, i, f"{mean:.2f}  (n={tot}: {h} tpm, {nw} news)",
                 va="center", ha="left", fontsize=8.5, color="#333333")
 
     ax.set_yticks(y)
     ax.set_yticklabels(types, fontsize=10)
     ax.invert_yaxis()
-    ax.set_xlabel("Mean agg score  (0–8, ±SEM)", fontsize=10)
+    ax.set_xlabel("Mean score (0–8, ±SEM)", fontsize=10)
     ax.set_xlim(0, 10.5)
     ax.axvline(5.5, color=TECH_COL, linestyle="--", linewidth=1, alpha=0.5,
                label="Technical (5.5)")
-    ax.axvline(2.5, color=POL_COL,  linestyle="--", linewidth=1, alpha=0.5,
-               label="Political (2.5)")
+    ax.axvline(3.0, color=POL_COL,  linestyle="--", linewidth=1, alpha=0.5,
+               label="Political (3.0)")
     ax.set_title("Score by Failure Type", fontsize=12, fontweight="bold")
     ax.set_facecolor(BG)
     ax.spines[["top", "right"]].set_visible(False)
@@ -308,6 +309,75 @@ def fa3_failure_type(ta):
 
     plt.tight_layout()
     out = FIGDIR / "FA3_failure_taxonomy.png"
+    plt.savefig(out, dpi=150, bbox_inches="tight", facecolor=BG)
+    plt.close()
+    print(f"Saved {out.name}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# FA3b — failure type, tech postmortems only
+# ─────────────────────────────────────────────────────────────────────────────
+
+def fa3b_failure_type_tpm(ta):
+    def norm(ft):
+        ft = ft.lower().strip()
+        ft = ft.replace("deployment failure", "deployment error")
+        ft = ft.replace("dns configuration error", "dns error")
+        ft = ft.replace("dns resolution error",   "dns error")
+        ft = ft.replace("network outage", "network failure")
+        return ft
+
+    by_type = defaultdict(list)
+
+    for r in ta:
+        if not r.get("failure_type") or r.get("agg_score") is None:
+            continue
+        if r.get("source") not in HAND:
+            continue
+        ft = norm(r["failure_type"])
+        by_type[ft].append(r["agg_score"])
+
+    # require >= 2 docs (smaller corpus), top 12 by mean score
+    ranked = [(ft, scores) for ft, scores in by_type.items() if len(scores) >= 2]
+    ranked.sort(key=lambda x: np.mean(x[1]), reverse=True)
+    ranked = ranked[:12]
+
+    types  = [ft for ft, _ in ranked]
+    means  = [np.mean(s) for _, s in ranked]
+    errors = [np.std(s) / len(s)**0.5 for _, s in ranked]
+    counts = [len(s) for _, s in ranked]
+
+    colours = [TECH_COL if m >= 5.5 else (POL_COL if m <= 3.0 else "#F57F17")
+               for m in means]
+
+    fig, ax = plt.subplots(figsize=(13, 7))
+    fig.patch.set_facecolor(BG)
+
+    y = np.arange(len(types))
+    ax.barh(y, means, xerr=errors, color=colours, alpha=0.82,
+            edgecolor="white", linewidth=0.5,
+            error_kw=dict(elinewidth=1.2, capsize=3, capthick=1.2, ecolor="#555555"))
+
+    for i, (mean, err, n) in enumerate(zip(means, errors, counts)):
+        ax.text(mean + err + 0.18, i, f"{mean:.2f}  (n={n} tpm)",
+                va="center", ha="left", fontsize=8.5, color="#333333")
+
+    ax.set_yticks(y)
+    ax.set_yticklabels(types, fontsize=10)
+    ax.invert_yaxis()
+    ax.set_xlabel("Mean score (0–8, ±SEM)", fontsize=10)
+    ax.set_xlim(0, 10.5)
+    ax.axvline(5.5, color=TECH_COL, linestyle="--", linewidth=1, alpha=0.5,
+               label="Technical (5.5)")
+    ax.axvline(3.0, color=POL_COL,  linestyle="--", linewidth=1, alpha=0.5,
+               label="Political (3.0)")
+    ax.set_title("Score by Failure Type  (tech postmortems only)", fontsize=12, fontweight="bold")
+    ax.set_facecolor(BG)
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.legend(fontsize=9, loc="lower right")
+
+    plt.tight_layout()
+    out = FIGDIR / "FA3b_failure_taxonomy_tpm.png"
     plt.savefig(out, dpi=150, bbox_inches="tight", facecolor=BG)
     plt.close()
     print(f"Saved {out.name}")
@@ -371,6 +441,7 @@ def main():
     fa1_company(ta)
     fa2_temporal(ta)
     fa3_failure_type(ta)
+    fa3b_failure_type_tpm(ta)
     fa4c_keywords(kw)
 
     print(f"\nDone — {len(list(FIGDIR.glob('*.png')))} figures in {FIGDIR}")

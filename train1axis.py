@@ -21,7 +21,6 @@ Outputs:
 import json
 import pickle
 import sys
-import glob
 import numpy as np
 from collections import defaultdict
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
@@ -48,8 +47,8 @@ EXTRA_STOPWORDS = {
     've', 'll', 're', 'don', 'didn', 'doesn',
     'wasn', 'aren', 'isn', 'couldn', 'wouldn', 'shouldn', 'won',
     'fv', 'ln', 'pq', 'newstex',
-    '2019', '2020', '2021', '2022', '2023', '2024',
-    'year', '000',
+    '2010', '2019', '2020', '2021', '2022', '2023', '2024',
+    'year', '000', 'japan',
     'pst', 'est', 'cst', 'mst', 'gmt', 'utc',
     'pdt', 'edt', 'cdt', 'mdt', 'bst', 'cet', 'ist', 'jst', 'aest',
     'jan', 'feb', 'mar', 'apr', 'jun', 'jul',
@@ -312,41 +311,6 @@ def centroid_score(x_arr, c_tech, c_pol, boundary, sigma):
     return float(1.0 / (1.0 + np.exp(-(diff - boundary) / (sigma + 1e-9))))
 
 
-def predict_test_docs(vectorizer, docs_co, number_weight=0.25, centroid_weight=0.75):
-    test_files = sorted(glob.glob('test_docs/*.txt'))
-    if not test_files:
-        return
-
-    c_tech, c_pol, boundary, sigma = build_centroids(vectorizer, docs_co)
-
-    print(f"\n{'='*60}")
-    print(f"TEST DOC PREDICTIONS  (combined binary model)")
-    print(f"  centroid={centroid_weight:.0%}  numbers={number_weight:.0%}  threshold=0.50")
-    print(f"{'='*60}")
-    print(f"  {'file':<32}  {'cent':>5}  {'num':>5}  {'final':>6}  label")
-    print(f"  {'-'*62}")
-
-    for path in test_files:
-        try:
-            with open(path, encoding='utf-8', errors='replace') as f:
-                text = f.read()
-
-            chunks     = chunk_texts(text)
-            cent_scores = []
-            for chunk in chunks:
-                x_arr = np.asarray(vectorizer.transform([chunk]).todense()).ravel()
-                cent_scores.append(centroid_score(x_arr, c_tech, c_pol, boundary, sigma))
-
-            cent_agg = 0.8 * max(cent_scores) + 0.2 * float(np.mean(cent_scores))
-            num      = number_score(text)
-            final    = centroid_weight * cent_agg + number_weight * num
-            label    = 'TECHNICAL' if final >= 0.50 else 'POLITICAL'
-            name     = path.replace('\\', '/').split('/')[-1]
-            print(f"  {name:<32}  {cent_agg:5.3f}  {num:5.3f}  {final:6.3f}  {label}")
-        except Exception as e:
-            print(f"  {path}: error — {e}")
-
-
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -375,8 +339,6 @@ def main():
     comparison = compare(kw_he, kw_co)
     with open('data/model_comparison.json', 'w', encoding='utf-8') as f:
         json.dump(comparison, f, indent=2)
-
-    predict_test_docs(vec_co, docs_co)
 
     print(f"\nArtifacts saved:")
     print(f"  data/vectorizer_{{handedited,combined}}.pkl")

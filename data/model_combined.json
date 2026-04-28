@@ -2,205 +2,205 @@
   "technical": [
     {
       "keyword": "data",
-      "coefficient": 0.39516002731613215
+      "coefficient": 0.394715902518137
     },
     {
       "keyword": "incident",
-      "coefficient": 0.19767492569362938
+      "coefficient": 0.19783244443837
     },
     {
       "keyword": "servers",
-      "coefficient": 0.19033009383806493
+      "coefficient": 0.19052861291403508
     },
     {
       "keyword": "code",
-      "coefficient": 0.1749690253969653
+      "coefficient": 0.17503660684128938
     },
     {
       "keyword": "server",
-      "coefficient": 0.16299013600141193
+      "coefficient": 0.16318655374853247
     },
     {
       "keyword": "load",
-      "coefficient": 0.16125625327654108
+      "coefficient": 0.16165207276644433
     },
     {
       "keyword": "outage",
-      "coefficient": 0.1604321567158975
+      "coefficient": 0.1603627642694114
     },
     {
       "keyword": "database",
-      "coefficient": 0.15356815568955184
+      "coefficient": 0.1537802260034528
     },
     {
       "keyword": "issue",
-      "coefficient": 0.14568169639614903
+      "coefficient": 0.14573853540344797
     },
     {
       "keyword": "change",
-      "coefficient": 0.13373407824113231
+      "coefficient": 0.13401293976464404
     },
     {
       "keyword": "used",
-      "coefficient": 0.13213632165153644
+      "coefficient": 0.13212661730225028
     },
     {
       "keyword": "requests",
-      "coefficient": 0.13072041657826539
+      "coefficient": 0.13083045884489286
     },
     {
       "keyword": "error",
-      "coefficient": 0.12878390992859337
+      "coefficient": 0.12878202702108482
     },
     {
       "keyword": "bug",
-      "coefficient": 0.12652963370132073
+      "coefficient": 0.1267317014986234
     },
     {
       "keyword": "caused",
-      "coefficient": 0.12548968771544206
+      "coefficient": 0.12535456650080581
     },
     {
       "keyword": "service",
-      "coefficient": 0.12465496172507275
+      "coefficient": 0.12403381051190011
     },
     {
       "keyword": "cause",
-      "coefficient": 0.12088538553154338
+      "coefficient": 0.12102211247249739
     },
     {
       "keyword": "time",
-      "coefficient": 0.1181215448419744
+      "coefficient": 0.11883136192125819
     },
     {
       "keyword": "network",
-      "coefficient": 0.11683606667669126
+      "coefficient": 0.11688797602765394
     },
     {
       "keyword": "configuration",
-      "coefficient": 0.11220169289860414
+      "coefficient": 0.11235883006350539
     },
     {
       "keyword": "file",
-      "coefficient": 0.11184017573947479
+      "coefficient": 0.11202275064839037
     },
     {
       "keyword": "cluster",
-      "coefficient": 0.1078456811056985
+      "coefficient": 0.10801727285258912
     },
     {
       "keyword": "team",
-      "coefficient": 0.10466637364691854
+      "coefficient": 0.10495528295461673
     },
     {
       "keyword": "user",
-      "coefficient": 0.10101768801167234
+      "coefficient": 0.10118213982448175
     },
     {
       "keyword": "users",
-      "coefficient": 0.09979020213829495
+      "coefficient": 0.10001143107046796
     }
   ],
   "political": [
     {
       "keyword": "said",
-      "coefficient": -0.2984401599409051
+      "coefficient": -0.2979962709170345
     },
     {
       "keyword": "glitch",
-      "coefficient": -0.15268940037797174
+      "coefficient": -0.15425567783286687
     },
     {
       "keyword": "news",
-      "coefficient": -0.09455945837068587
+      "coefficient": -0.09641623834661188
     },
     {
       "keyword": "company",
-      "coefficient": -0.09282212174337083
+      "coefficient": -0.09258253918010242
     },
     {
       "keyword": "bank",
-      "coefficient": -0.08460503372121236
+      "coefficient": -0.08496710382655442
     },
     {
       "keyword": "copyright",
-      "coefficient": -0.07977895194380055
+      "coefficient": -0.08086790081094838
     },
     {
       "keyword": "month",
-      "coefficient": -0.07271755724723505
+      "coefficient": -0.07318976142791647
     },
     {
       "keyword": "government",
-      "coefficient": -0.07191610351932913
+      "coefficient": -0.07204569220612535
     },
     {
       "keyword": "world",
-      "coefficient": -0.07131807119417417
+      "coefficient": -0.07193190252073098
     },
     {
       "keyword": "million",
-      "coefficient": -0.06849647575465807
+      "coefficient": -0.06848507064913216
     },
     {
       "keyword": "business",
-      "coefficient": -0.06612384935255171
+      "coefficient": -0.06618437890082739
     },
     {
       "keyword": "glitches",
-      "coefficient": -0.06398460151911595
+      "coefficient": -0.06407232443506203
     },
     {
       "keyword": "computer",
-      "coefficient": -0.06145430530849534
+      "coefficient": -0.060613174550287675
     },
     {
       "keyword": "yesterday",
-      "coefficient": -0.058535109909393514
-    },
-    {
-      "keyword": "2010",
-      "coefficient": -0.05837635072100946
+      "coefficient": -0.058382046030721786
     },
     {
       "keyword": "percent",
-      "coefficient": -0.05620903706539745
+      "coefficient": -0.055952841121333384
     },
     {
       "keyword": "rights",
-      "coefficient": -0.053511397524733495
+      "coefficient": -0.05466157583106625
     },
     {
       "keyword": "cent",
-      "coefficient": -0.052897702723803224
+      "coefficient": -0.05301786318773831
     },
     {
       "keyword": "tv",
-      "coefficient": -0.0523651814509096
+      "coefficient": -0.05266975513297539
     },
     {
       "keyword": "companies",
-      "coefficient": -0.052096159648113954
-    },
-    {
-      "keyword": "japan",
-      "coefficient": -0.05138254807087287
-    },
-    {
-      "keyword": "2000",
-      "coefficient": -0.05129801379732008
+      "coefficient": -0.05195918121488876
     },
     {
       "keyword": "game",
-      "coefficient": -0.051247798860925335
+      "coefficient": -0.05087269316284472
+    },
+    {
+      "keyword": "2000",
+      "coefficient": -0.050624897934292167
     },
     {
       "keyword": "people",
-      "coefficient": -0.05081949445846966
+      "coefficient": -0.050468107894592204
     },
     {
       "keyword": "trading",
-      "coefficient": -0.04911022693781268
+      "coefficient": -0.049969196915201186
+    },
+    {
+      "keyword": "air",
+      "coefficient": -0.0496736832262756
+    },
+    {
+      "keyword": "man",
+      "coefficient": -0.0491776797708081
     }
   ]
 }
